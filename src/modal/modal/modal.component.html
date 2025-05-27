@@ -1,33 +1,36 @@
 @if (whatami == 'guest') {
   
     <div class="modal" *ngIf="isOpen" (click)="close()">
+      
       <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="close()">&times;</span>
         <div class="modal-header">
-          <h2>Welcome!</h2>
-          
+          <h2>Welcome! </h2>
+            
         </div>
+        
         <div class="text">
           <p>Login or sign up to continue </p>
         </div>
         <div class="modal-body">
-          <button class="btn-Facebook">Continue with Facebook</button>
+          <div class="domain-auth">
+            <button class="btn-Facebook">Continue with Facebook</button>
           <button class="btn-Google" (click)="onGoogleLogin()">Continue with Google</button>
-          <div class="line">
-            
-            <p>or</p>
-            
-            
           </div>
+          
+          <p class="or">or</p>
         </div>
-        <input class="email" type="text" placeholder="Email" [(ngModel)]="email">
-        <input class="password" type="password" placeholder="Password" [(ngModel)]="password">
+        <div class="inputs">
+          <input class="email" type="text" placeholder="Email" [(ngModel)]="email">
+          <input class="password" type="password" placeholder="Password" [(ngModel)]="password">
+        </div>
+        
         
         
         <div class="modal-footer">
           <button class="btn-login" (click)="onLogin()">Login</button>
         </div>
-        <p>By signing up, you agree to our Terms & Conditions and Privacy Policy</p>
+        
       </div>
     </div>
 }
@@ -38,18 +41,19 @@
       <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="close()">&times;</span>
         <div class="modal-header">
-          <h2>Registration</h2>
+          <h2>Sign up</h2>
         </div>
-        <div class="text">
-          <p>Register </p>
-        </div>
+        
         <div class="modal-body">
-          <input type="text" placeholder="Name" [(ngModel)]="name">
-          <input type="text" placeholder="Address" [(ngModel)]="address">
-          <input type="text" placeholder="Contact Number" [(ngModel)]="contact">
-          <input class="email" type="text" placeholder="Email" [(ngModel)]="email">
-          <input class="password" type="password" placeholder="Password" [(ngModel)]="password">
-            
+          <div class="inputs">
+            <input type="text" placeholder="Name" [(ngModel)]="name">
+            <input type="text" placeholder="Address" [(ngModel)]="address">
+            <input type="text" placeholder="Contact Number" [(ngModel)]="contact">
+            <input class="email" type="text" placeholder="Email" [(ngModel)]="email">
+            <input class="password" type="password" placeholder="Password" [(ngModel)]="password">
+              
+          </div>
+          
           
         </div>
         
@@ -58,7 +62,7 @@
         <div class="modal-footer">
           <button class="btn-login" (click)="onRegister()">Register</button>
         </div>
-        <p>By signing up, you agree to our Terms & Conditions and Privacy Policy</p>
+        <p class="terms">By signing up, you agree to our Terms & Conditions and Privacy Policy</p>
       </div>
     </div>
 }
