@@ -1,0 +1,143 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+
+.modal-content {
+  background-color: #D6EFD8;
+  border-radius: 5px;
+  padding: 20px;
+  width: 600px;
+  height: 750px;
+  text-align: center;
+  /* position: relative; */
+}
+
+input{
+  width: 500px;
+  height: 56px;
+  margin: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: #1A5319;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  top: 0px;
+}
+
+.close {
+  display: block;
+  float: right;
+  font-size: 40px;
+  cursor: pointer;
+  color: #1A5319
+}
+
+.modal-header h2 {
+  
+  margin: auto;
+  color: #1A5319;
+  font-family: 'Poppins', sans-serif;
+  /* padding: 20px; */
+  font-size: 40px;
+  font-weight: 800;
+  /* position: relative; */
+  top: 0px;
+  right: 150px;
+}
+.text {
+  margin: 20px 0;
+  color: #1A5319;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 35px;
+  right: 165px;
+}
+
+
+
+.line p{
+  color: #1A5319;
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.modal-body, .modal-footer {
+  margin-top: 15px;
+}
+
+.btn-Facebook, .btn-Google {
+  width: 500px;
+  height: 56px;
+  margin: 15px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  top: 0px
+}
+.btn-login, .btn-signup {
+  width: 500px;
+  height: 56px;
+  margin: auto;
+  margin-top: 2px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  top: px;
+}
+
+.btn-Facebook {
+  background-color: #4267B2;
+}
+
+.btn-Google {
+  background-color: #DB4437;
+}
+
+.btn-signup {
+  background-color: #1A5319;
+}
+
+.btn-login {
+  background-color: #FEFAE0;
+  border : 2px solid #1A5319;
+  color: #1A5319
+}
+
+
+p {
+  color: #1A5319;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}

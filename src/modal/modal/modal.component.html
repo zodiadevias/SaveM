@@ -1,0 +1,147 @@
+@if (whatami == 'guest') {
+  
+    <div class="modal" *ngIf="isOpen" (click)="close()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="close()">&times;</span>
+        <div class="modal-header">
+          <h2>Welcome!</h2>
+          
+        </div>
+        <div class="text">
+          <p>Login or sign up to continue </p>
+        </div>
+        <div class="modal-body">
+          <button class="btn-Facebook">Continue with Facebook</button>
+          <button class="btn-Google" (click)="onGoogleLogin()">Continue with Google</button>
+          <div class="line">
+            
+            <p>or</p>
+            
+            
+          </div>
+        </div>
+        <input class="email" type="text" placeholder="Email" [(ngModel)]="email">
+        <input class="password" type="password" placeholder="Password" [(ngModel)]="password">
+        
+        
+        <div class="modal-footer">
+          <button class="btn-login" (click)="onLogin()">Login</button>
+        </div>
+        <p>By signing up, you agree to our Terms & Conditions and Privacy Policy</p>
+      </div>
+    </div>
+}
+
+
+@if(whatami == 'guestRegister'){
+  <div class="modal" *ngIf="isOpen" (click)="close()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="close()">&times;</span>
+        <div class="modal-header">
+          <h2>Registration</h2>
+        </div>
+        <div class="text">
+          <p>Register </p>
+        </div>
+        <div class="modal-body">
+          <input type="text" placeholder="Name" [(ngModel)]="name">
+          <input type="text" placeholder="Address" [(ngModel)]="address">
+          <input type="text" placeholder="Contact Number" [(ngModel)]="contact">
+          <input class="email" type="text" placeholder="Email" [(ngModel)]="email">
+          <input class="password" type="password" placeholder="Password" [(ngModel)]="password">
+            
+          
+        </div>
+        
+        
+        
+        <div class="modal-footer">
+          <button class="btn-login" (click)="onRegister()">Register</button>
+        </div>
+        <p>By signing up, you agree to our Terms & Conditions and Privacy Policy</p>
+      </div>
+    </div>
+}
+
+
+
+<!-------------------------- Partner html modal code -------------------------->
+
+@if (whatami == 'partner') {
+  <div class="modal-partner" *ngIf="isOpen" (click)="close()">
+  <div class="modal-content-partner" (click)="$event.stopPropagation()">
+    <span class="close-partner" (click)="close()">&times;</span>
+    <div class="modal-header-partner">
+      <h2>Welcome Partner!</h2>
+    </div>
+    <div class="text-partner">
+        <p>Log in your business account</p>
+    </div>
+    <div class="modal-body-partner">
+        <table>
+            <tr>
+                <td>
+                  Email
+                </td>
+            </tr>
+            <tr>
+                <input class="email-partner" type="text">
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                     Password
+                </td>
+            </tr>
+            <tr>
+                <input class="password-partner" type="password">
+            </tr>
+        </table>
+    </div>
+    <div class="modal-footer-partner">
+        <button class="btn-login-partner">Login</button>
+    </div>
+    <p>By signing up, you agree to our Terms & Conditions and Privacy Policy</p>
+  </div>
+</div>
+}
+
+<!-- -------------------------- End Partner html modal code ---------------------------->
+
+
+<!-- Reviews -->
+
+@if(whatami == 'reviews'){
+  <div class="r-modal-overlay" *ngIf="isOpen" (click)="close()">
+    <div class="r-modal-content" (click)="$event.stopPropagation()">
+      <div class="r-modal-header">
+        <h2 style="color: black">Reviews</h2>
+        <button class="close-button" (click)="close()">&times;</button>
+      </div>
+      <div class="r-modal-body">
+        <ng-content>
+          <div class="coninterko">
+            <br>
+                <div class="review">
+                    <br>
+                    <h1>Overall Rating: </h1>
+                </div>
+                <div class="flex">
+                    <button class="btn">Top Review</button>
+                    <button class="btn">Newest</button>
+                    <button class="btn">Highest Rating</button>
+                    <button class="btn">Lowest Rating</button>
+                </div>
+                
+                <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+                    <div class="review">
+                        <br>
+                    </div>
+                </ng-container>
+          </div>
+        </ng-content>
+      </div>
+  </div>
+</div>
+}

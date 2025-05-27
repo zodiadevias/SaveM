@@ -1,0 +1,114 @@
+
+.sticky{
+    position: sticky;
+    z-index: 1000;
+    top: 0;
+}
+
+.greet{
+    background: radial-gradient(circle at 50% 50%, #508D4E 0%, #1A5319 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FEFAE0;
+    line-height: 0.1;
+    padding-bottom: 20px;
+}
+
+.search{
+    position: absolute;
+    width: 30%;
+    height: 40px;
+    margin-top: 270px;
+    border: none;
+    border-radius: 5px;
+    color: #1A5319;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #FEFAE0;
+
+}
+
+.search:focus{
+    outline: none;
+}
+
+::placeholder{
+    color: #1A5319;
+    font-family: 'Poppins', sans-serif;
+    font-size: larger;
+}
+
+.content{
+    margin: 20px;
+    background-color: #FEFAE0;
+    padding: 20px 0px 20px 20px;
+    
+
+}
+
+h1{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1A5319;
+    font-family: 'Poppins', sans-serif;
+}
+
+.picks{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    overflow-x: scroll;
+    scrollbar-gutter: stable;
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+    &:hover {
+        scrollbar-color: #1A5319 #FEFAE0;
+    }
+    padding-bottom: 20px;
+}
+
+.pick-item{
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 150px;
+    max-height: 150px;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    background-color: #508D4E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+
+
+@media screen and (max-width: 1000px) {
+    .greet .logo{
+        width: 150px;
+        height: 150px;
+    }
+
+    .search{
+        width: 60%;
+        margin-top: 150px;
+    }
+
+    .picks{
+        justify-content: flex-start;
+    }
+
+    
+
+
+    
+}

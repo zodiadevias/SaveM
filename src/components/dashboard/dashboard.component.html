@@ -1,0 +1,63 @@
+<div class="sticky">
+    <app-header></app-header>
+</div>
+
+
+@if(whatAmI == 'store'){
+    <div class="greet">
+        <img src="img/logo-with-title.svg" alt="logo" class="logo">
+        <h2>Hello, {{name}}!</h2>
+    </div>
+    <div class="content">
+        <!-- app.component.html -->
+    <div class="chart">
+        <h1 style="margin-left: 20px;">Summary</h1>
+        <div class="chart-heading">
+            <p>Sales</p>
+            <p>May 2025</p>
+        </div>
+        <div class="chart-container">
+            <canvas  id="lineChart" >{{ chart }}</canvas>
+        </div>
+        
+    </div>
+    
+    </div>
+}
+
+@if(whatAmI == 'user'){
+    <div class="greet">
+        <img src="img/logo-with-title.svg" alt="logo" class="logo">
+        <div class="break">
+        </div>
+        <input class="search" type="text" placeholder="Search">
+    </div>
+
+    <div class="content">
+        
+    </div>
+}
+
+@if(whatAmI == 'guest'){
+    <div class="greet">
+        <img src="img/logo-with-title.svg" alt="logo" class="logo">
+
+        <input class="search" type="text" placeholder="Search">
+    </div>
+
+    <div class="content">
+        <h1>Popular Picks</h1>
+        <div class="picks">
+                <div *ngFor="let i of [1, 2, 3, 4, 5,6,7,8,9,10]" class="pick-item"><img src="img/pick{{i}}.png" alt="pick{{i}}"></div>
+        </div>
+        <h1>Near You</h1>
+        <div class="picks">
+            <div *ngFor="let i of [1, 2, 3, 4, 5]" class="pick-item"><img src="img/pick{{i}}.png" alt="pick{{i}}"></div>
+        </div>
+
+    </div>
+    
+    
+}
+
+
