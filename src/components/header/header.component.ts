@@ -87,15 +87,7 @@ isOpen: boolean = false;
 
 
 login(user: string){
-  
   this.openModal(user);
-  // if(this.screenWidth < 768){
-  //   this.router.navigate(['/mobile/login']);
-
-    
-  // }else{
-  //   this.openModal(user);
-  // }
 }
 
 signup(user: string){
