@@ -4,17 +4,35 @@
   <!-- Incoming Orders -->
   <div class="left">
     <label>Incoming Orders</label>
-
-    <div class="order-card">
-      <p><strong>Order Number:</strong> INC1234</p>
-      <p><strong>Quantity:</strong> 3</p>
-      <button class="action-btn">Accept Order</button>
-    </div>
-
-    <div class="order-card">
-      <p><strong>Order Number:</strong> INC1235</p>
-      <p><strong>Quantity:</strong> 2</p>
-      <button class="action-btn">Accept Order</button>
+    <div class="incoming">
+      <div class="order-number" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12]">
+        <div class="order-heading" (click)="toggleOrder(item)">
+          <span class="order-text">Order #1000{{ item }}</span>
+          <span>
+            <i
+              class="angle fa-solid"
+              [ngClass]="isOrderOpen(item) ? 'fa-angle-up' : 'fa-angle-down'"
+            ></i>
+          </span>
+        </div>
+        <div class="order-content" [ngStyle]="{ display: isOrderOpen(item) ? 'flex' : 'none' }">
+          <span>Order Details</span>
+          <table>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+            <tr *ngFor="let subItem of [1,2,3,4,5]">
+              <td>Item {{ subItem }}</td>
+              <td>1</td>
+              <td>$10.00</td>
+            </tr>
+          </table>
+          <span class="total">Total: $50.00</span>
+          <button class="action-btn">Accept Order</button>
+        </div>
+      </div>
     </div>
   </div>
 

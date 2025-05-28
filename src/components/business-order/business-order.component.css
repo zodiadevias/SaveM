@@ -85,6 +85,80 @@ select {
     font-size: 14px;
 }
 
+.incoming{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    
+    
+}
+
+.order-heading{
+    background-color: #80AF81;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.order-number{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    
+}
+
+.order-text{
+    margin-left: 10px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.angle{
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.order-content{
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #D9D9D9;
+    cursor: default;
+    width: 100%;
+    animation: slideDown 0.3s ease-in;
+}
+
+td{
+    text-align: center;
+}
+
+.total{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
 @media (max-width: 412px) {
     h2 {
         font-size: 28px;
