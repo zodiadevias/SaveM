@@ -55,7 +55,6 @@
     flex-direction: column;
     align-items: center;
     margin-top: 200px;
-    
     border: 1px solid #1A5319;
     padding: 20px;
     background-color: #D6EFD8;
@@ -63,6 +62,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     width: 30%; 
     background-color: #FEFAE0;
+    gap: 10px;
 }
 
 
@@ -73,7 +73,6 @@ input{
     width: 60%;
     height: 30px;
     padding: 5px;
-    margin: 5px;
     color:#1A5319;
 }
 
@@ -89,6 +88,17 @@ h1{
     font-size: 1.5rem;
     font-weight: bold;
     font-family: 'Poppins', sans-serif;
+}
+
+button{
+    border-radius: 5px;
+    border: 2px solid #1A5319;
+    background-color: #1A5319;
+    color: #FEFAE0;
+    height: 40px;
+    width: 25%;
+    margin-left: 4px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 880px) {
@@ -108,5 +118,9 @@ h1{
         margin-top: 0;
         width: 80%;
         margin-left: 0;
+    }
+
+    input{
+        width: 90%;
     }
 }
