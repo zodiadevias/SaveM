@@ -1,0 +1,28 @@
+<div class="sticky">
+    <app-header></app-header>
+</div>
+
+<div class="content">
+    <div class="portrait-container">
+        <h1>Store Logo</h1>
+        <div class="image-box" [ngStyle]="{'background-image': imageUrl ? 'url(' + imageUrl + ')' : ''}" (click)="onBoxClick()">
+            <span class="upload-text" *ngIf="!imageUrl">Click to upload</span>
+        </div>
+        <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)" hidden />
+    </div>
+
+    <div class="forms">
+        <h1>Store Details</h1>
+        <input type="text" placeholder="Name">
+        <input type="text" placeholder="Contact Number">
+        <input type="text" placeholder="Email">
+        <input type="text" placeholder="Business Name">
+        <input type="text" placeholder="Business Address">
+        <input type="password" placeholder="Password">
+        <input type="password" placeholder="Confirm Password">
+    </div>
+
+
+</div>
+
+
