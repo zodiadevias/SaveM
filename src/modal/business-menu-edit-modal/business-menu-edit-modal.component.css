@@ -1,0 +1,236 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.5s ease-in-out;
+  line-height: 2px;
+  
+}
+
+
+
+.modal-content {
+  background-color: #D6EFD8;
+  border-radius: 5px;
+  padding: 20px;
+  width: 600px;
+  height: 700px;
+  /* position: relative; */
+}
+
+
+
+.close {
+  display: block;
+  float: right;
+  font-size: 40px;
+  cursor: pointer;
+  color: #1A5319;
+  margin-top: 20px;
+  
+}
+
+.modal-header{
+  color: #1A5319;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal-header h2{
+  font-size: 2rem;
+  /* display: none; */
+}
+
+
+.modal-body, .modal-footer {
+  margin-top: 15px;
+}
+
+
+
+.edit-item-name{
+    outline: none;
+    border: none;
+    border-bottom: #1A5319 solid 2px;
+    height: 53px;
+    width: 70%;
+    color: #1A5319;
+    background-color: #D6EFD8;
+    font-size: 1.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    
+}
+
+::placeholder{
+    color: #1A5319;
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+}
+
+.save{
+    cursor: pointer;
+    color: #1A5319;
+    font-size: 1.5rem;
+}
+
+.description{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.edit-item-description{
+    width: 85%;
+    height: 75px;
+    outline: none;
+    color: #1A5319;
+    background-color: #D6EFD8;
+    font-size: 0.7rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    resize: none;
+}
+
+.item-description{
+    white-space: pre-line;
+    line-height: 20px;
+    height: 100px;
+    color: #1A5319;
+    font-size: 0.7rem;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.image-container{
+    width: 150px;
+    height: 150px;
+    border: 3px solid #1A5319;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    color: #777;
+    font-family: sans-serif;
+    margin:auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    
+    
+}
+
+.old-image{
+    width: 150px;
+}
+
+
+
+table{
+    width: 100%;
+    height: 100px;
+    border-collapse: collapse;
+    margin-top: 25px;
+    color: #1A5319;
+    font-size: 0.8rem;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid black;
+    text-align: center;
+}
+
+th{
+    border: 1px solid black;
+    width: 100px;
+    height: 50px;
+}
+td{
+    border: 1px solid black;
+    width: 100px;
+    height: 50px;
+    
+}
+
+
+
+.update{
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 25px;
+}
+
+button{
+    width: 20%;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid red;
+    background-color: red;
+    color: #FEFAE0;
+    cursor: pointer;
+    font-size: 70%;
+}
+
+.row-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+input{
+    width: 50%;
+    background-color: #D6EFD8;
+    border: 2px solid #1A5319;
+    border-radius: 5px;
+    color: #1A5319;
+    
+}
+
+.confirmDelete{
+    
+    margin-top: 25px;
+    text-align: center;
+}
+
+
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+
+@media screen and (max-width: 500px) {
+  .modal-content {
+    width: 100%;
+    height: 70%;
+  }
+
+  
+}
+
+
+/* Guest Register */
+
+
+
+
+

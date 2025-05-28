@@ -3,29 +3,40 @@
 </div>
 
 <app-business-menu-modal [isOpen]="isModalOpen" (closeModal)="closeModal()"></app-business-menu-modal>
+<app-business-menu-edit-modal [isOpen]="isEditModalOpen" (closeEditModal)="closeEditModal()"></app-business-menu-edit-modal>
+
 <div class="content">
     <div class="menu">
         <h1>Menu Management</h1>
         <span (click)="openModal()"><i class="green-icon fa-solid fa-square-plus"></i></span>
-        @if(showCheckboxes == false){
-            <span (click)="toggleCheckboxes()"><i class="green-icon fa-solid fa-trash"></i></span>
+        @if(showDelete == false){
+            <span (click)="toggleShowDelete()"><i class="green-icon fa-solid fa-trash"></i></span>
         }@else{
             <span><i class="delete fa-solid fa-square-check"></i></span>
-            <span (click)="toggleCheckboxes()"><i class="delete fa-solid fa-square-xmark"></i></span>
+            <span (click)="toggleShowDelete()"><i class="delete fa-solid fa-square-xmark"></i></span>
             
         }
         
 
     </div>
     
-    
-    <div class="menu-items">
+    @if(showDelete == false){
+        <div class="menu-items">
             <div *ngFor="let item of items; let i = index" class="item">
-                <div class="check">
-                    <input type="checkbox" class="checkbox"  [ngStyle]="{ display: showCheckboxes ? 'block' : 'none' }">
-                </div>
-                <img src="img/logo.png" alt="item{{i}}">
-                <p>{{item}}</p>
+                <div class="check"></div>
+                <img (click)="openEditModal()" src="img/logo.png" alt="item{{i}}">
+                <span>{{item}}</span>
             </div>
-    </div>
+        </div>
+    }@else {
+        <div class="menu-items">
+  <div *ngFor="let item of items; let i = index" class="item-delete" [ngClass]="{ 'selected-delete': selectedForDelete.has(i) }" (click)="toggleDeleteSelection(i)">
+    <div class="check"></div>
+    <img src="img/logo.png" alt="item{{ i }}">
+    <span>{{ item }}</span>
+  </div>
+</div>
+
+    }
+    
 </div>
