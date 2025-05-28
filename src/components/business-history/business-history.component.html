@@ -1,1 +1,24 @@
-<p>business-history works!</p>
+<app-header></app-header>
+    <div class="greet">
+        <img src="img/logo-with-title.svg" alt="logo" class="logo">
+        <h2>Hello, {{name}}!</h2>
+    </div>
+    <br>
+   <div class="content">
+    <h1>History</h1>
+    <div class="container">
+        <div class="wow">
+            <div class="review">
+            </div>
+            <div class="flex">
+                <p>{{historyDate}}</p><p>{{historyName}}</p>
+            </div>
+            
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+                <div class="review">
+                    <br>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
