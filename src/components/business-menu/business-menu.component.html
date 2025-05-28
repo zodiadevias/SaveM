@@ -1,1 +1,31 @@
-<p>business-menu works!</p>
+<div class="sticky">
+    <app-header></app-header>
+</div>
+
+
+<div class="content">
+    <div class="menu">
+        <h1>Menu Management</h1>
+        <span><i class="green-icon fa-solid fa-square-plus"></i></span>
+        @if(showCheckboxes == false){
+            <span (click)="toggleCheckboxes()"><i class="green-icon fa-solid fa-trash"></i></span>
+        }@else{
+            <span><i class="delete fa-solid fa-square-check"></i></span>
+            <span (click)="toggleCheckboxes()"><i class="delete fa-solid fa-square-xmark"></i></span>
+            
+        }
+        
+
+    </div>
+    
+    
+    <div class="menu-items">
+            <div *ngFor="let i of [1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" class="item">
+                <div class="check">
+                    <input type="checkbox" class="checkbox"  [ngStyle]="{ display: showCheckboxes ? 'block' : 'none' }">
+                </div>
+                <img src="img/logo.png" alt="item{{i}}">
+                <p>Item</p>
+            </div>
+    </div>
+</div>
