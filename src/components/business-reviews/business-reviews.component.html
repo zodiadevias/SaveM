@@ -1,1 +1,32 @@
-<p>business-reviews works!</p>
+<div class="sticky">
+    <app-header></app-header>
+</div>
+
+    <div class="greet">
+        <img src="img/logo-with-title.svg" alt="logo" class="logo">
+        <h2>Hello, !</h2>
+    </div>
+    <br>
+   <div class="content">
+    <h1>Reviews</h1>
+    <div class="container">
+        <div class="wow">
+            <div class="review">
+                <br>
+            </div>
+            <div class="flex">
+                <p>05-28-2025</p>
+                <p>Banana Bread</p>
+                <p><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></p>
+                <p>View Comments</p>
+            </div>
+            
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+                <div class="review">
+                    <br>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
