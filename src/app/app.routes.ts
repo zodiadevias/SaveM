@@ -3,6 +3,7 @@ import { DashboardComponent } from '../components/dashboard/dashboard.component'
 import { BusinessSignupComponent } from '../components/business-signup/business-signup.component';
 import { BusinessReviewsComponent } from '../components/business-reviews/business-reviews.component';
 import { BusinessMenuComponent } from '../components/business-menu/business-menu.component';
+import { BusinessInboxComponent } from '../components/business-inbox/business-inbox.component';
 
 
 export const routes: Routes = [
@@ -11,6 +12,7 @@ export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'business/register', component: BusinessSignupComponent},
     { path: 'business/reviews', component: BusinessReviewsComponent},
-    { path: 'business/menu', component: BusinessMenuComponent}
+    { path: 'business/menu', component: BusinessMenuComponent},
+    { path: 'business/inbox', component: BusinessInboxComponent},
 
 ];
