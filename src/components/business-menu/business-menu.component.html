@@ -2,11 +2,11 @@
     <app-header></app-header>
 </div>
 
-
+<app-business-menu-modal [isOpen]="isModalOpen" (closeModal)="closeModal()"></app-business-menu-modal>
 <div class="content">
     <div class="menu">
         <h1>Menu Management</h1>
-        <span><i class="green-icon fa-solid fa-square-plus"></i></span>
+        <span (click)="openModal()"><i class="green-icon fa-solid fa-square-plus"></i></span>
         @if(showCheckboxes == false){
             <span (click)="toggleCheckboxes()"><i class="green-icon fa-solid fa-trash"></i></span>
         }@else{
@@ -20,12 +20,12 @@
     
     
     <div class="menu-items">
-            <div *ngFor="let i of [1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" class="item">
+            <div *ngFor="let item of items; let i = index" class="item">
                 <div class="check">
                     <input type="checkbox" class="checkbox"  [ngStyle]="{ display: showCheckboxes ? 'block' : 'none' }">
                 </div>
                 <img src="img/logo.png" alt="item{{i}}">
-                <p>Item</p>
+                <p>{{item}}</p>
             </div>
     </div>
 </div>
