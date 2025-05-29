@@ -11,6 +11,7 @@ import { StoreComponent } from '../components/store/store.component';
 import { UserPaymentReviewOptionComponent } from '../components/user-payment-review-option/user-payment-review-option.component';
 import { UserDeliveryComponent } from '../components/user-delivery/user-delivery.component';
 import { ChatbotComponent } from '../components/chatbot/chatbot.component';
+import { UserPickupComponent } from '../components/user-pickup/user-pickup.component';
 
 
 export const routes: Routes = [
@@ -29,5 +30,6 @@ export const routes: Routes = [
     { path: 'user/delivery', component: UserDeliveryComponent},
     {path: 'chatbot', component: ChatbotComponent},
     {path: 'business', component: DashboardComponent},
+    {path: 'pickup', component: UserPickupComponent}
 
 ];
