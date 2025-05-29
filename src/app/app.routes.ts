@@ -8,6 +8,7 @@ import { BusinessHistoryComponent } from '../components/business-history/busines
 import { BusinessProfileComponent } from '../components/business-profile/business-profile.component';
 import { BusinessOrderComponent } from '../components/business-order/business-order.component';
 import { StoreComponent } from '../components/store/store.component';
+import { UserPaymentReviewOptionComponent } from '../components/user-payment-review-option/user-payment-review-option.component';
 
 
 export const routes: Routes = [
@@ -22,5 +23,6 @@ export const routes: Routes = [
     { path: 'business/profile', component: BusinessProfileComponent},
     { path: 'business/order', component: BusinessOrderComponent},
     {path: 'store' , component: StoreComponent},
+    { path: 'user/payment', component: UserPaymentReviewOptionComponent},
 
 ];
