@@ -9,6 +9,7 @@ import { BusinessProfileComponent } from '../components/business-profile/busines
 import { BusinessOrderComponent } from '../components/business-order/business-order.component';
 import { StoreComponent } from '../components/store/store.component';
 import { UserPaymentReviewOptionComponent } from '../components/user-payment-review-option/user-payment-review-option.component';
+import { UserDeliveryComponent } from '../components/user-delivery/user-delivery.component';
 
 
 export const routes: Routes = [
@@ -24,5 +25,6 @@ export const routes: Routes = [
     { path: 'business/order', component: BusinessOrderComponent},
     {path: 'store' , component: StoreComponent},
     { path: 'user/payment', component: UserPaymentReviewOptionComponent},
+    { path: 'user/delivery', component: UserDeliveryComponent},
 
 ];
