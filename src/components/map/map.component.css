@@ -1,0 +1,21 @@
+#map {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  height: 500px;
+}
+
+.custom-map-control-button {
+  background-color: #fff;
+  border: none;
+  outline: none;
+  width: auto;
+  padding: 8px 16px;
+  margin: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
