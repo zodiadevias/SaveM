@@ -10,6 +10,7 @@ import { BusinessOrderComponent } from '../components/business-order/business-or
 import { StoreComponent } from '../components/store/store.component';
 import { UserPaymentReviewOptionComponent } from '../components/user-payment-review-option/user-payment-review-option.component';
 import { UserDeliveryComponent } from '../components/user-delivery/user-delivery.component';
+import { ChatbotComponent } from '../components/chatbot/chatbot.component';
 
 
 export const routes: Routes = [
@@ -26,5 +27,7 @@ export const routes: Routes = [
     {path: 'store' , component: StoreComponent},
     { path: 'user/payment', component: UserPaymentReviewOptionComponent},
     { path: 'user/delivery', component: UserDeliveryComponent},
+    {path: 'chatbot', component: ChatbotComponent},
+    {path: 'business', component: DashboardComponent},
 
 ];

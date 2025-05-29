@@ -16,7 +16,7 @@
         <div class="header-right-links" id="header-right-links" >
             <a (click)="login('guest')">Login</a>
             <a (click)="signup('guestRegister')">Sign Up</a>
-            <a href="">Chat Support</a>
+            <a routerLink="/chatbot">Chat Support</a>
             <a routerLink="/business/register">Sign Up for Business</a>
         </div>
 
@@ -42,7 +42,7 @@
             <a routerLink="/business/menu">Menu Management</a>
             <a routerLink="/business/reviews">Reviews</a>
             <a routerLink="/business/inbox">Inbox</a>
-            <a href="">Chat Support</a>
+            
             <a href="" style="background-color: red;" (click)="logout()">Logout</a>
         </div>
         
@@ -67,7 +67,7 @@
             <a href="">Pickup</a>
             <a href="">Shops</a>
             <a href="">Inbox</a>
-            <a href="">Chat Support</a>
+            <a routerLink="/chatbot">Chat Support</a>
             <a style="background-color: red;" (click)="logout()">Logout</a>
         </div>
         
