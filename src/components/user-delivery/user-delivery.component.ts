@@ -9,5 +9,7 @@ import { MapComponent } from "../map/map.component";
   styleUrl: './user-delivery.component.css'
 })
 export class UserDeliveryComponent {
-  
+  foodPlaces: { name: string; lat: number; lng: number }[] = [
+    { name: 'Tinapayan', lat: 14.84193, lng: 120.28671 }
+  ]
 }

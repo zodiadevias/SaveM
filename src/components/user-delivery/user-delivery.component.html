@@ -1,4 +1,10 @@
-<app-header></app-header>
-<app-map></app-map>
+<div class="sticky">
+    <app-header></app-header>
+</div>
+
+<div class="map">
+    <app-map [apiKey]="'AIzaSyAfeFxRviL6S-qG7OkcmvKG_THCdk_zjNM'" [mode]="'delivery'" [foodPlaces]="foodPlaces"></app-map>
+</div>
+
 
 

@@ -1,0 +1,13 @@
+.sticky{
+    position: sticky;
+    z-index: 1000;
+    top: 0;
+}
+
+.map{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}

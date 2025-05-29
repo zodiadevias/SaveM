@@ -1,4 +1,4 @@
-#map {
+/* #map {
   width: 100%;
   max-width: 1000x;
   margin: 0 auto;
@@ -17,5 +17,27 @@
   cursor: pointer;
   border-radius: 4px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+} */
+
+.map-container {
+  width: 700px;
+  height: 400px; /* adjust as needed */
+  border: 2px solid #1A5319;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
+.custom-map-control-button {
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+  cursor: pointer;
+  margin: 10px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.custom-map-control-button:hover {
+  background-color: #ebebeb;
+}
