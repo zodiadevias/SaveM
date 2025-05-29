@@ -2,14 +2,14 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { ModalComponent } from '../../modal/modal/modal.component';
 import { CommonModule } from '@angular/common';
 import { GlobalService } from '../../services/global.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 
 @Component({
   selector: 'app-header',
-  imports: [ModalComponent, CommonModule ],
+  imports: [ModalComponent, CommonModule , RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   
@@ -80,6 +80,7 @@ closeModal() {
   ngDoCheck() {
     this.whatAmI = this.globalService.getWhatAmIHead();
     
+    
   }
 
 
@@ -98,7 +99,7 @@ signup(user: string){
 logout(){
   this.authService.logout()
     .then(() => {
-      console.log('User logged out');
+      
       this.globalService.setWhatAmIHead('guest');
     })
     .catch(err => console.error('Logout error:', err));

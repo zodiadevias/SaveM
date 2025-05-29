@@ -13,6 +13,7 @@ import { FirestoreService } from '../../services/firestore.service';
 })
 export class ModalComponent {
       login = true;
+      msg = '';
 
       gotoSignUp() {
         this.login = false;
@@ -38,6 +39,7 @@ export class ModalComponent {
 
 
       close(): void {
+        this.clearFields();
         this.closeModal.emit();
       }
 
@@ -60,16 +62,27 @@ export class ModalComponent {
         this.address = '';
         this.phone = '';
         this.contact = '';
+        this.msg = '';
       }
 
-      onLogin() {
+      async onLogin() {
         this.authService.login(this.email, this.password)
-          .then(user => {
-            console.log('Logged in:', user);
+          .then(async user => {
+            
+            const role = await this.FirestoreService.getUserRole(user.user.uid);
+            if (role === 'customer') {
+              this.globalService.setWhatAmIHead('user');
+            }else{
+              this.globalService.setWhatAmIHead('store');
+            }
             this.close();
-            this.globalService.setWhatAmIHead('user');
+            
           })
-          .catch(err => console.error('Login error:', err));
+          .catch(err =>{ 
+            console.error('Login error:', err);
+            this.msg = 'Invalid email or password';
+
+          });
       }
 
       onRegister() {
@@ -86,7 +99,11 @@ export class ModalComponent {
           this.close();
           this.clearFields();
           })
-          .catch(err => console.error('Register error:', err));
+          .catch(err => {
+            console.error('Register error:', err)
+            this.msg = err.message;
+
+          });
       }
 
       onGoogleLogin() {
@@ -98,6 +115,7 @@ export class ModalComponent {
           })
           .catch(error => {
             console.error('Google login error:', error);
+            this.msg = error.message;
           });
       }
 

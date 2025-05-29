@@ -47,7 +47,6 @@ openModal(whatAmI: string): void {
 }
 
 checkUser() {
-  console.log(this.authService.currentUser);
   if (!this.authService.currentUser) {
     this.openModal('guest');
   }
@@ -64,7 +63,6 @@ closeModal() {
 
   ngDoCheck() {
     this.whatAmI = this.globalService.getWhatAmIDashboard();
-    console.log(this.whatAmI);
     
   }
   

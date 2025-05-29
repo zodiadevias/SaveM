@@ -21,7 +21,7 @@
   border-radius: 5px;
   padding: 20px;
   width: 400px;
-  height: 400px;
+  height: 450px;
   /* text-align: center; */
   /* position: relative; */
 }
@@ -148,6 +148,13 @@ p{
   margin-top: 10px;
 }
 
+.msg{
+  font-size: 0.69rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  color: #1A5319;
+  
+}
 
 
 @keyframes fadeIn {

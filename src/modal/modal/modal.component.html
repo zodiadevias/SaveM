@@ -23,12 +23,14 @@
         <div class="inputs">
           <input class="email" type="text" placeholder="Email" [(ngModel)]="email">
           <input class="password" type="password" placeholder="Password" [(ngModel)]="password">
+          <span class="msg">{{msg}}</span>
         </div>
         
         
         
         <div class="modal-footer">
           <button class="btn-login" (click)="onLogin()">Login</button>
+          
         </div>
         
       </div>
@@ -51,8 +53,9 @@
             <input type="text" placeholder="Contact Number" [(ngModel)]="contact">
             <input class="email" type="text" placeholder="Email" [(ngModel)]="email">
             <input class="password" type="password" placeholder="Password" [(ngModel)]="password">
-              
+            <span class="msg">{{msg}}</span>
           </div>
+          
           
           
         </div>
