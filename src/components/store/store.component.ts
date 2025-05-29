@@ -9,5 +9,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './store.component.css'
 })
 export class StoreComponent {
+    showReviewModal = false;
 
+openReviewModal(event: MouseEvent) {
+  event.preventDefault();
+  this.showReviewModal = true;
+}
 }

@@ -167,22 +167,31 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .product {
-    min-width: 90%;
-  }
-
-  .cart-summary {
+@media screen and (max-width: 768px) {
+  .main-container {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    padding: 1rem;
   }
 
-  .shop-info h1 {
-    font-size: 1.2rem;
+  .products {
+    grid-template-columns: 1fr;
   }
 
-  .greet {
-    padding: 1.5rem 1rem;
+  .cart {
+    margin-top: 2rem;
+  }
+
+  .cart-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cart-controls button {
+    width: 100%;
+  }
+
+  .product img {
+    width: 100%;
+    height: auto;
   }
 }

@@ -1,0 +1,34 @@
+<div class="modal" *ngIf="isOpen" (click)="close()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="close()">&times;</span>
+    
+    <div class="modal-header">
+      <h2>Reviews</h2>
+      <p>{{storename}} - {{storeaddress}}</p>
+    </div>
+
+    <div class="modal-body">
+      <div class="store-reviews">
+        <p>{{reviews}}</p>
+        <p>All ratings ({{totalratings}})</p>
+      </div>
+
+      <div class="categories">
+        <button class="btn-top">Top Review</button>
+        <button class="btn-top">Newest</button>
+        <button class="btn-top">Highest Rating</button>
+        <button class="btn-top">Lowest Rating</button>
+      </div>
+
+      <div class="user-review">
+        <p>{{userreview}}</p>
+        <span>{{date}}</span>
+        <p>{{comments}}</p>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-login" (click)="close()">Close</button>
+    </div>
+  </div>
+</div>

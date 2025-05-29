@@ -1,0 +1,23 @@
+.store-reviews,
+.user-review {
+  margin-top: 15px;
+  font-family: 'Poppins', sans-serif;
+  color: #1A5319;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.btn-top {
+  background-color: #FEFAE0;
+  border: 2px solid #1A5319;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #1A5319;
+  cursor: pointer;
+}
