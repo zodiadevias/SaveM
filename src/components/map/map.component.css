@@ -1,8 +1,8 @@
 #map {
   width: 100%;
-  max-width: 700px;
+  max-width: 1000x;
   margin: 0 auto;
-  height: 500px;
+  height: 425px;
 }
 
 .custom-map-control-button {
