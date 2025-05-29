@@ -1,43 +1,52 @@
 <div class="sticky">
-    <app-header></app-header>
+  <app-header></app-header>
 </div>
 
- <div class="shop-logo">
-    <img src="assets/tinapayan-logo.png" alt="Tinapayan Bakery Logo" class="shop-logo">
-        <div class="shop-info">
-            <h1>TINAPAYAN BAKERY – 14th Gate Asinan</h1>
-            <p class="rating">⭐ 4.7/5(100+) <a href="#">See Reviews</a></p>
-        </div>
+<div class="greet">
+  <img src="assets/tinapayan-logo.png" alt="Tinapayan Bakery Logo" class="shop-logo" />
+  <div class="shop-info">
+    <h1>TINAPAYAN BAKERY – 14th Gate Asinan</h1>
+    <p class="rating">⭐ 4.7/5 (100+) <a href="#">See Reviews</a></p>
   </div>
+</div>
 
-  <div class="offers">
-    <h2>LIMITED-TIME OFFERS</h2>
-    <p>Don’t miss out on these items!</p>
+<div class="main-container">
+  <!-- LEFT SIDE: OFFERS + PRODUCTS -->
+  <div class="offers-section">
+    <div class="offers-header">
+      <h2>🧁 LIMITED-TIME OFFERS</h2>
+      <p>Don’t miss out on this items!</p>
+    </div>
 
     <div class="products">
       <div class="product">
         <h3>Banana Bread</h3>
-        <img src="assets/banana-bread.png" alt="Banana Bread">
-        <p class="price-original">₱50.00</p>
-        <p class="price-discounted">₱25.00</p>
-        <p>Moist, sweet, and packed with ripe bananas... ☕🍌</p>
+        <img src="assets/banana-bread.png" alt="Banana Bread" />
+        <p>Original Price: ₱50.00<br>Discounted Price: ₱25.00<br>Best Before: March 22, 2025</p>
+        <p>Moist, sweet, and packed with ripe bananas, with a hint of cinnamon... 🍌</p>
         <button>+</button>
       </div>
-    </div>
 
+      <!-- Add more product cards like this -->
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE: CART -->
   <div class="cart">
     <div class="cart-controls">
       <button class="btn-delivery">Delivery</button>
       <button class="btn-pickup">Pick-up</button>
     </div>
+
     <div class="cart-info">
-      <img src="assets/cart.png" alt="Cart">
+      <img src="assets/cart.png" alt="Cart Icon" />
       <p>You haven’t added anything to your cart!</p>
     </div>
+
     <div class="cart-summary">
       <p>Total (incl. fees and tax)</p>
       <p class="total">₱0.00</p>
       <button>Review payment and Address</button>
     </div>
   </div>
-
+</div>
