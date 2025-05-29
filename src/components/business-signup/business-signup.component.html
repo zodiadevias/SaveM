@@ -17,13 +17,28 @@
         <input type="text" placeholder="Name" [(ngModel)]="fullname" required>
         <input type="text" placeholder="Contact Number" [(ngModel)]="contactNumber" required>
         <input type="text" placeholder="Email" [(ngModel)]="email" required>
-        <input type="text" placeholder="Business Name" [(ngModel)]="businessName" required>
-        <input type="text" placeholder="Business Address" [(ngModel)]="businessAddress" required>
+        <input type="text" placeholder="Business Name" [(ngModel)]="businessName" required>  
+        <div class="map-picker">
+            <input class="location-input" type="text" [(ngModel)]="selectedCoordinates" readonly placeholder="Business Address" />
+            <button class="location-button" type="button" (click)="openMapModal()">📍</button>
+        </div>   
+        
+
+
         <input type="password" placeholder="Password" [(ngModel)]="password" required>
         <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" required>
         <button (click)="onRegister()">Sign Up</button>
     </div>
 
+
+<!-- Modal for map -->
+<div class="map-modal" *ngIf="showMapModal">
+  <div class="modal-content">
+    <div #mapPicker class="map-container"></div>
+    <button (click)="confirmLocation()">Confirm Location</button>
+    <button (click)="closeMapModal()">Cancel</button>
+  </div>
+</div>
 
 </div>
 

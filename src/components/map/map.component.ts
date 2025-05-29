@@ -1,15 +1,7 @@
-import { Component, AfterViewInit } from '@angular/core';
-import {  ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { GoogleMapsService } from '../../services/google-maps.service';
+import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
 
-declare global {
-  interface Window {
-    initMap: () => void;
-  }
-}
 @Component({
   selector: 'app-map',
-  imports: [],
   templateUrl: './map.component.html',
   styleUrl: './map.component.css'
 })
@@ -23,10 +15,7 @@ export class MapComponent implements OnInit {
   private map!: google.maps.Map;
   private infoWindow!: google.maps.InfoWindow;
   private userLocation: google.maps.LatLngLiteral | null = null;
-
-  // private riderLocation: google.maps.LatLngLiteral = {
-  //   lat: 14.84193, lng: 120.28671
-  // }
+  private userLiveMarker!: google.maps.Marker;
 
   ngOnInit(): void {
     this.loadGoogleMapsScript().then(() => this.initMap());
@@ -51,7 +40,7 @@ export class MapComponent implements OnInit {
   }
 
   private initMap(): void {
-    const defaultCenter = this.userLocation || { lat: 14.84193, lng: 120.28671 }; // my current location as fallback
+    const defaultCenter = this.userLocation || { lat: 14.84193, lng: 120.28671 };
 
     this.map = new google.maps.Map(this.mapContainer.nativeElement, {
       center: defaultCenter,
@@ -61,11 +50,9 @@ export class MapComponent implements OnInit {
 
     this.infoWindow = new google.maps.InfoWindow();
 
-    this.setUserLocation().then((location) => {
+    this.startRealtimeUserTracking().then((location) => {
       this.userLocation = location;
       this.map.setCenter(location);
-      this.addUserMarker(location);
-      // this.addRiderMarker();
       this.addFoodMarkers();
 
       if (this.mode === 'delivery') {
@@ -74,45 +61,57 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private setUserLocation(): Promise<google.maps.LatLngLiteral> {
-    return new Promise((resolve, reject) => {
+  private startRealtimeUserTracking(): Promise<google.maps.LatLngLiteral> {
+    return new Promise((resolve) => {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (pos) => resolve({
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude
-          }),
-          () => resolve({ lat: 40.7128, lng: -74.006 }) // fallback location
+        navigator.geolocation.watchPosition(
+          (pos) => {
+            const coords: google.maps.LatLngLiteral = {
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude
+            };
+
+            this.userLocation = coords;
+            this.updateUserLiveMarker(coords);
+
+            resolve(coords); // First update only
+          },
+          () => {
+            const fallback = { lat: 40.7128, lng: -74.006 };
+            this.updateUserLiveMarker(fallback);
+            resolve(fallback);
+          },
+          {
+            enableHighAccuracy: true,
+            maximumAge: 0,
+            timeout: 10000
+          }
         );
       } else {
-        resolve({ lat: 40.7128, lng: -74.006 });
+        const fallback = { lat: 40.7128, lng: -74.006 };
+        this.updateUserLiveMarker(fallback);
+        resolve(fallback);
       }
     });
   }
 
-  private addUserMarker(position: google.maps.LatLngLiteral): void {
-    new google.maps.Marker({
-      position,
-      map: this.map,
-      title: 'You are here',
-      icon: {
-        url: 'https://img.icons8.com/emoji/48/house-emoji.png'
-      }
-    });
+  private updateUserLiveMarker(position: google.maps.LatLngLiteral): void {
+    if (!this.userLiveMarker) {
+      this.userLiveMarker = new google.maps.Marker({
+        position,
+        map: this.map,
+        title: 'You (Live)',
+        icon: {
+          url: 'https://img.icons8.com/emoji/48/house-emoji.png',
+          scaledSize: new google.maps.Size(40, 40)
+        }
+      });
+    } else {
+      this.userLiveMarker.setPosition(position);
+    }
+
+    this.map.setCenter(position); // Optional: follow user
   }
-
-//   private addRiderMarker(): void {
-//   new google.maps.Marker({
-//     position: this.riderLocation,
-//     map: this.map,
-//     title: 'Delivery Rider',
-//     icon: {
-//       url: 'https://img.icons8.com/emoji/48/motor-scooter.png', // or your own icon
-//       scaledSize: new google.maps.Size(40, 40)
-//     }
-//   });
-// }
-
 
   private addFoodMarkers(): void {
     for (const place of this.foodPlaces) {
@@ -146,7 +145,6 @@ export class MapComponent implements OnInit {
       });
     });
 
-    // Only show the first route (or customize to show multiple)
     requests[0].then((result) => {
       directionsRenderer.setDirections(result);
     });

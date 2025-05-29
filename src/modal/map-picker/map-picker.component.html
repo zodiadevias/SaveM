@@ -1,0 +1,12 @@
+<div class="location-input">
+  <input type="text" [value]="selectedCoordinates" readonly placeholder="Click pin icon to select location" />
+  <button type="button" (click)="openMapModal()">📍</button>
+</div>
+
+<div class="map-modal" *ngIf="showMapModal">
+  <div class="modal-content">
+    <div #mapPicker class="map-container"></div>
+    <button (click)="confirmLocation()">Confirm Location</button>
+    <button (click)="closeMapModal()">Cancel</button>
+  </div>
+</div>

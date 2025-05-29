@@ -14,7 +14,7 @@ import { deleteDoc } from '@angular/fire/firestore';
   providedIn: 'root',
 })
 export class FirestoreService {
-  constructor(private firestore: Firestore, private auth: Auth) {}
+  constructor(public firestore: Firestore, private auth: Auth) {}
 
   // 1. Add user profile
   async createUser(user: User) {
@@ -43,6 +43,12 @@ export class FirestoreService {
     }
   }
 
+  updateUserProfile(uid: string, data: any): Promise<void> {
+    const userRef = doc(this.firestore, `users/${uid}`);
+    return updateDoc(userRef, data);
+  }
+
+
   // 3. Get business name
   async getBusinessName(uid: string): Promise<string | null> {
     const userRef = doc(this.firestore, `users/${uid}`);
@@ -61,6 +67,29 @@ export class FirestoreService {
     const ref = doc(this.firestore, `stores/${storeId}`);
     return docData(ref, { idField: 'uid' }) as Observable<Store>;
   }
+
+  // 5. Get stores
+  getAllStores() {
+  const ref = collection(this.firestore, 'stores');
+  return collectionData(ref, { idField: 'id' }) as Observable<Store[]>;
+}
+
+
+  async updateLocation(uid: string, lat: number, lng: number): Promise<void> {
+  const locationData = {
+    location: {
+      lat,
+      lng,
+    },
+  };
+
+  const userRef = doc(this.firestore, `users/${uid}`);
+  const storeRef = doc(this.firestore, `stores/${uid}`);
+
+  await updateDoc(userRef, locationData);
+  await updateDoc(storeRef, locationData);
+}
+
 
   // 5. Add food item to menu
   addMenuItem(storeId: string, item: any) {

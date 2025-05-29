@@ -27,17 +27,20 @@ h1 {
 
 /* MAP CONTAINER */
 .map-container {
-  width: 70%;
-  max-width: 900px;
-  margin: -180px auto 50px auto;
+
+  
+  margin-top: -190px;
   height: auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .map {
   background-color: #FEFAE0;
-  height: 425px;
-  border: 2px solid #1A5319;
+  height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }

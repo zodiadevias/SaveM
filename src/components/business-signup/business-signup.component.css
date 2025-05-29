@@ -101,6 +101,49 @@ button{
     cursor: pointer;
 }
 
+
+.map-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 1rem;
+  width: 90%;
+  max-width: 600px;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-container {
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.map-picker{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.location-input{
+    width: 50%;
+}
+
+.location-button{
+    width: 10%;
+}
+
 @media screen and (max-width: 1000px) {
     .content{
         flex-direction: column;

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GoogleMapsService {
-private map!: google.maps.Map;
+  private map!: google.maps.Map;
   private infoWindow!: google.maps.InfoWindow;
 
   loadGoogleMaps(apiKey: string, callbackName = 'initMap'): void {

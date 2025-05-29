@@ -11,4 +11,6 @@ import { MapComponent } from '../map/map.component';
 export class UserPickupComponent {
   order: string = 'Banana Bread';
   status: string = 'Pending';
+
+  foodPlaces: { name: string; lat: number; lng: number }[] = [{ name: 'Tinapayan', lat: 14.84193, lng: 120.28671 }]
 }

@@ -151,7 +151,7 @@ export class BusinessSignupComponent implements OnInit{
 // }
 
 async onRegister(): Promise<void> {
-  if (!this.fullname || !this.businessName || !this.email || !this.password || !this.confirmPassword || !this.businessAddress || !this.contactNumber) {
+  if (!this.fullname || !this.businessName || !this.email || !this.password || !this.confirmPassword || !this.selectedCoordinates || !this.contactNumber) {
     this.error = 'Please fill in all required fields.';
     this.openModal();
     return;
@@ -174,6 +174,8 @@ async onRegister(): Promise<void> {
     const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
     const uid = userCredential.user.uid;
 
+    const [latitude, longitude] = this.selectedCoordinates.split(',').map(coord => parseFloat(coord.trim()));
+
     // Upload store logo
     const filePath = `store_logos/${uid}/${uuidv4()}_${this.logoFile.name}`;
     const fileRef = ref(this.storage, filePath);
@@ -186,7 +188,10 @@ async onRegister(): Promise<void> {
       uid,
       fullName: this.fullname,
       businessName: this.businessName,
-      businessAddress: this.businessAddress,
+      businessAddress: {
+        lat: latitude,
+        lng: longitude
+      },
       contactNumber: this.contactNumber,
       email: this.email,
       logoUrl,
@@ -199,7 +204,10 @@ async onRegister(): Promise<void> {
     await setDoc(storeDocRef, {
       ownerId: uid,
       storeName: this.businessName,
-      storeAddress: this.businessAddress,
+      storeAddress: {
+        lat: latitude,
+        lng: longitude
+      },
       logoUrl,
       createdAt: new Date(),
     });
@@ -227,6 +235,106 @@ async onRegister(): Promise<void> {
     this.openModal();
   }
 }
+
+
+                                                                      //MAP PICKER
+@ViewChild('mapPicker', { static: false }) mapPickerRef!: ElementRef;
+
+selectedCoordinates = '';
+showMapModal = false;
+
+private mapPicker!: google.maps.Map;
+private pinMarker!: google.maps.Marker;
+
+openMapModal(): void {
+  this.loadGoogleMapsScript()
+    .then(() => {
+      this.showMapModal = true;
+      setTimeout(() => {
+        const coords = this.selectedCoordinates?.split(',').map(x => parseFloat(x.trim()));
+        const center = coords?.length === 2
+          ? { lat: coords[0], lng: coords[1] }
+          : { lat: 14.84193, lng: 120.28671 };
+
+        this.initPickerMap(center);
+      }, 200);
+    })
+    .catch((err) => {
+      console.error(err);
+      alert('Failed to load Google Maps');
+    });
+}
+
+
+closeMapModal(): void {
+  this.showMapModal = false;
+}
+
+confirmLocation(): void {
+  if (this.pinMarker) {
+    const pos = this.pinMarker.getPosition();
+    if (pos) {
+      this.selectedCoordinates = `${pos.lat()}, ${pos.lng()}`;
+    }
+  }
+  this.closeMapModal();
+}
+
+private loadGoogleMapsScript(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (typeof google !== 'undefined' && google.maps) {
+      resolve(); // Already loaded
+      return;
+    }
+
+    if (document.getElementById('google-maps-script')) {
+      (window as any).onGoogleMapsReady = () => resolve();
+      return;
+    }
+
+    (window as any).onGoogleMapsReady = () => resolve();
+
+    const script = document.createElement('script');
+    script.id = 'google-maps-script';
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAfeFxRviL6S-qG7OkcmvKG_THCdk_zjNM&callback=onGoogleMapsReady`;
+    script.async = true;
+    script.defer = true;
+    script.onerror = () => reject('Google Maps failed to load.');
+    document.head.appendChild(script);
+  });
+}
+
+private initPickerMap(center: google.maps.LatLngLiteral): void {
+  this.mapPicker = new google.maps.Map(this.mapPickerRef.nativeElement, {
+    center,
+    zoom: 13,
+  });
+
+  // If editing, place marker
+  if (this.selectedCoordinates) {
+    const [lat, lng] = this.selectedCoordinates.split(',').map(x => parseFloat(x.trim()));
+    this.pinMarker = new google.maps.Marker({
+      position: { lat, lng },
+      map: this.mapPicker,
+      draggable: true
+    });
+  }
+
+  this.mapPicker.addListener('click', (e: google.maps.MapMouseEvent) => {
+    const clickedLocation = e.latLng!;
+    if (!this.pinMarker) {
+      this.pinMarker = new google.maps.Marker({
+        position: clickedLocation,
+        map: this.mapPicker,
+        draggable: true
+      });
+    } else {
+      this.pinMarker.setPosition(clickedLocation);
+    }
+  });
+}
+//MAP PICKER
+
 
   
 }
