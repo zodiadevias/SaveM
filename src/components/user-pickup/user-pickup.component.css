@@ -1,9 +1,10 @@
-.sticky{
-    position: sticky;
-    z-index: 1000;
-    top: 0;
+.sticky {
+  position: sticky;
+  z-index: 1000;
+  top: 0;
 }
 
+/* GREETING SECTION */
 .greet {
   background: radial-gradient(circle at 50% 50%, #508D4E 0%, #1A5319 100%);
   display: flex;
@@ -14,68 +15,85 @@
   height: 18.5rem;
 }
 
-h1{
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    font-family: 'Poppins', sans-serif;
+/* HEADING STYLE */
+h1 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.map-container{
-    
-    width: 50%;
-    height: 450px;
-    margin: auto;
-    margin-top: -250px;
-    
-    
+/* MAP CONTAINER */
+.map-container {
+  width: 70%;
+  max-width: 900px;
+  margin: -180px auto 50px auto;
+  height: auto;
+  text-align: center;
 }
 
-.map{
-    background-color: #FEFAE0;
-    height: 425px;
-    border: #1A5319 2px solid;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+.map {
+  background-color: #FEFAE0;
+  height: 425px;
+  border: 2px solid #1A5319;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-.bottom{
-    display: flex;
-    flex-direction: row;
-    margin: auto;
-    width: 100%;
-    margin-top: 50px;
-    align-items: center;
-    justify-content: center;
-    
+/* BOTTOM CONTAINER */
+.bottom {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 50px auto;
+  width: 85%;
+  flex-wrap: wrap;
 }
 
-.order{
-    width: 25%;
-    background-color: #FEFAE0;
-    height: 200px;
-    border: 2px solid #1A5319;
-    
-    
+.order, .status {
+  width: 40%;
+  max-width: 400px;
+  background-color: #FEFAE0;
+  height: 200px;
+  border: 2px solid #1A5319;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-.status{
-    width: 25%;
-    background-color: #FEFAE0;
-    height: 200px;
-    border: 2px solid #1A5319;
+.order h2, .status h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #1A5319;
 }
 
+.order p, .status p {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  margin-top: 5px;
+}
+
+/* RESPONSIVE */
 @media (max-width: 1200px) {
-
-    .bottom {
-      flex-direction: column;
-      width: 90%;
-    }
-
-    .order,
-    .status {
-      width: 100%;
-      margin: 10px 0;
-    }
+  .bottom {
+    flex-direction: column;
+    width: 90%;
+    gap: 20px;
   }
+
+  .order,
+  .status {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .map-container {
+    width: 90%;
+    margin-top: -150px;
+  }
+}
