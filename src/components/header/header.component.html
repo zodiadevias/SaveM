@@ -17,7 +17,7 @@
             <a (click)="login('guest')">Login</a>
             <a (click)="signup('guestRegister')">Sign Up</a>
             <a href="">Chat Support</a>
-            <a href="">Sign Up for Business</a>
+            <a routerLink="/business/register">Sign Up for Business</a>
         </div>
 
         <app-modal [isOpen]="isModalOpen" (closeModal)="closeModal()"></app-modal>
@@ -40,8 +40,8 @@
             <a routerLink="/dashboard">Dashboard</a>
             <a routerLink="/business/order">Orders</a>
             <a routerLink="/business/menu">Menu Management</a>
-            <a href="">Reviews</a>
-            <a href="">Inbox</a>
+            <a routerLink="/business/reviews">Reviews</a>
+            <a routerLink="/business/inbox">Inbox</a>
             <a href="">Chat Support</a>
             <a href="" style="background-color: red;" (click)="logout()">Logout</a>
         </div>

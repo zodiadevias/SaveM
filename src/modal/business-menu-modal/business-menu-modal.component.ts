@@ -1,43 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ViewChild, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-business-menu-modal',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './business-menu-modal.component.html',
   styleUrl: './business-menu-modal.component.css'
 })
 export class BusinessMenuModalComponent {
-  name: string = 'Banana Bread';
+  name: string = '';
   description: string = '';
   stock: number = 0;
   price: number = 0;
   discount: number = 0;
-  finalPrice: number = this.price * (this.discount / 100.0);
+  finalPrice: number = 0;
+  imageUrl: string | null = null;
 
-  @Input() isOpen: boolean = false;
-  @Input() itemId: string = '';
-  @Input() itemName: string = '';
-  @Input() itemDescription: string = '';
-  @Input() itemStock: number = 0;
-  @Input() itemPrice: number = 0;
-  @Input() itemDiscount: number = 0;
-  @Input() itemFinalPrice: number = 0;
-  @Input() itemImageUrl: string = '';
-  @Output() closeModal = new EventEmitter<void>();
-
-  close(): void {
-        this.closeModal.emit();
-        this.toggleEditName = false;
-        this.toggleEditDescription = false;
-        this.toggleConfirmation = false;
-        this.toggleStock = false;
-        this.togglePrice = false;
-        this.toggleDiscount = false;
-  }
-
+  toggleEditDesc: any;
+  toggleEdit: any;
   toggleEditName: boolean = false;
   toggleEditDescription: boolean = false;
   toggleStock: boolean = false;
@@ -45,39 +27,16 @@ export class BusinessMenuModalComponent {
   toggleDiscount: boolean = false;
   toggleConfirmation: boolean = false;
 
-
-  toggleEdit() {
-    this.toggleEditName = !this.toggleEditName; 
-  }
-
-  toggleEditDesc() {
-    this.toggleEditDescription = !this.toggleEditDescription; 
-  }
-
-  enforceLineLimit(event: Event): void {
-  const textarea = event.target as HTMLTextAreaElement;
-  const lines = textarea.value.split('\n');
-
-  if (lines.length > 4) {
-    // Limit to first 4 lines
-    textarea.value = lines.slice(0, 4).join('\n');
-    this.description = textarea.value;
-  }
-}
-
-  ngDoCheck() {
-    this.finalPrice = this.price * (this.discount / 100);
-    if(this.description == '') {
-      this.description = 'Click me to add a description';
-    }
-  }
-
-
-  
-  
-  imageUrl: string | null = null;
+  @Input() isOpen: boolean = false;
+  @Output() closeModal = new EventEmitter<void>();
+  @Output() saveProduct = new EventEmitter<any>();
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
+  close(): void {
+    this.closeModal.emit();
+    this.resetForm();
+  }
 
   onBoxClick(): void {
     this.fileInput.nativeElement.click();
@@ -96,8 +55,43 @@ export class BusinessMenuModalComponent {
     }
   }
 
+  enforceLineLimit(event: Event): void {
+    const textarea = event.target as HTMLTextAreaElement;
+    const lines = textarea.value.split('\n');
+    if (lines.length > 4) {
+      textarea.value = lines.slice(0, 4).join('\n');
+      this.description = textarea.value;
+    }
+  }
 
+  ngDoCheck(): void {
+    this.finalPrice = this.price - (this.price * (this.discount / 100));
+  }
 
-  
+  save(): void {
+    const productData = {
+      name: this.name,
+      description: this.description || 'No description provided',
+      stock: this.stock,
+      price: this.price,
+      discount: this.discount,
+      finalPrice: this.finalPrice,
+      imageUrl: this.imageUrl || 'img/default.png',
+      isAvailable: true,
+      createdAt: new Date(),
+    };
 
+    this.saveProduct.emit(productData);
+    this.close();
+  }
+
+  resetForm(): void {
+    this.name = '';
+    this.description = '';
+    this.stock = 0;
+    this.price = 0;
+    this.discount = 0;
+    this.finalPrice = 0;
+    this.imageUrl = null;
+  }
 }

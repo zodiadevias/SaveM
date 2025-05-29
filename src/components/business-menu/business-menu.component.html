@@ -1,42 +1,91 @@
 <div class="sticky">
-    <app-header></app-header>
+  <app-header></app-header>
 </div>
 
-<app-business-menu-modal [isOpen]="isModalOpen" (closeModal)="closeModal()"></app-business-menu-modal>
-<app-business-menu-edit-modal [itemId]="id" [itemName]="name" [itemDescription]="description" [itemStock]="stock" [itemPrice]="price" [itemDiscount]="discount" [itemFinalPrice]="finalPrice" [itemImageUrl]="imageUrl" [itemIsAvailable]="isAvailable" [isOpen]="isEditModalOpen" (closeEditModal)="closeEditModal()"></app-business-menu-edit-modal>
+<!-- Add Item Modal -->
+<app-business-menu-modal
+  [isOpen]="isModalOpen"
+  (closeModal)="closeModal()"
+  (saveProduct)="handleSaveProduct($event)"
+></app-business-menu-modal>
+
+<!-- Edit Item Modal -->
+
+
+<app-business-menu-edit-modal
+  [isOpen]="isEditModalOpen"
+  [itemId]="selectedItem?.id || ''"
+  [itemName]="selectedItem?.name || ''"
+  [itemDescription]="selectedItem?.description || ''"
+  [itemStock]="selectedItem?.stock || 0"
+  [itemPrice]="selectedItem?.price || 0"
+  [itemDiscount]="selectedItem?.discount || 0"
+  [itemFinalPrice]="selectedItem?.finalPrice || 0"
+  [itemImageUrl]="selectedItem?.imageUrl || ''"
+  [itemIsAvailable]="selectedItem?.isAvailable || false"
+  (closeEditModal)="closeEditModal()"
+  (save)="handleEditSave($event)"
+  (delete)="handleDeleteProduct($event)"
+></app-business-menu-edit-modal>
+
 
 <div class="content">
-    <div class="menu">
-        <h1>Menu Management</h1>
-        <span (click)="openModal()"><i class="green-icon fa-solid fa-square-plus"></i></span>
-        @if(showDelete == false){
-            <span (click)="toggleShowDelete()"><i class="green-icon fa-solid fa-trash"></i></span>
-        }@else{
-            <span (click)="deleteSelected()"><i class="delete fa-solid fa-square-check"></i></span>
-            <span (click)="toggleShowDelete()"><i class="delete fa-solid fa-square-xmark"></i></span>
-            
-        }
-        
+  <div class="menu">
+    <h1>Menu Management</h1>
 
-    </div>
-    
-    @if(showDelete == false){
-        <div class="menu-items">
-            <div *ngFor="let item of items; let i = index" class="item">
-                <div class="check"></div>
-                <img (click)="openEditModal(item.id ?? '', item.name, item.description ?? '', item.stock, item.price, item.discount, item.finalPrice, item.imageUrl ?? '', item.isAvailable)" src="img/logo.png" alt="item{{i}}">
-                <span>{{item.name}}</span>
-            </div>
-        </div>
-    }@else {
-        <div class="menu-items">
-  <div *ngFor="let item of items; let i = index" class="item-delete" [ngClass]="{ 'selected-delete': selectedForDelete.has(i) }" (click)="toggleDeleteSelection(i)">
-    <div class="check"></div>
-    <img src="img/logo.png" alt="item{{ i }}">
-    <span>{{ item.name }}</span>
+    <!-- Add Item -->
+    <span (click)="openModal()">
+      <i class="green-icon fa-solid fa-square-plus"></i>
+    </span>
+
+    <!-- Toggle Delete Mode -->
+    <ng-container *ngIf="!showDelete; else deleteControls">
+      <span (click)="toggleShowDelete()">
+        <i class="green-icon fa-solid fa-trash"></i>
+      </span>
+    </ng-container>
+    <ng-template #deleteControls>
+      <span (click)="deleteSelected()">
+        <i class="delete fa-solid fa-square-check"></i>
+      </span>
+      <span (click)="toggleShowDelete()">
+        <i class="delete fa-solid fa-square-xmark"></i>
+      </span>
+    </ng-template>
   </div>
-</div>
 
-    }
-    
+  <!-- Menu Items Display -->
+  <ng-container *ngIf="!showDelete; else deleteMode">
+    <div class="menu-items">
+      <div
+        *ngFor="let item of items; let i = index"
+        class="item"
+      >
+        <div class="check"></div>
+        <!-- Clicking on image opens Edit Modal with this item -->
+        <img
+          (click)="openEditModal(item)"
+          [src]="item.imageUrl || 'img/logo.png'"
+          alt="item{{ i }}"
+        />
+        <span>{{ item.name }}</span>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Delete Mode View -->
+  <ng-template #deleteMode>
+    <div class="menu-items">
+      <div
+        *ngFor="let item of items; let i = index"
+        class="item-delete"
+        [ngClass]="{ 'selected-delete': selectedForDelete.has(i) }"
+        (click)="toggleDeleteSelection(i)"
+      >
+        <div class="check"></div>
+        <img [src]="item.imageUrl || 'img/logo.png'" alt="item{{ i }}" />
+        <span>{{ item.name }}</span>
+      </div>
+    </div>
+  </ng-template>
 </div>
