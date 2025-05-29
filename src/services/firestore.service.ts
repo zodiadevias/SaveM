@@ -42,13 +42,17 @@ export class FirestoreService {
     }
   }
 
-  // 3. Create store
-  async createStore(store: Store) {
-    const ref = doc(this.firestore, `stores/${store.uid}`);
-    await setDoc(ref, {
-      ...store,
-      createdAt: Timestamp.now(),
-    });
+  // 3. Get business name
+  async getBusinessName(uid: string): Promise<string | null> {
+    const userRef = doc(this.firestore, `users/${uid}`);
+    
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists()) {
+      const userData = userSnap.data();
+      return userData['businessName'];
+    } else {
+      return null;
+    }
   }
 
   // 4. Get store details

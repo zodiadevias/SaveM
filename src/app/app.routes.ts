@@ -7,6 +7,7 @@ import { BusinessInboxComponent } from '../components/business-inbox/business-in
 import { BusinessHistoryComponent } from '../components/business-history/business-history.component';
 import { BusinessProfileComponent } from '../components/business-profile/business-profile.component';
 import { BusinessOrderComponent } from '../components/business-order/business-order.component';
+import { StoreComponent } from '../components/store/store.component';
 
 
 export const routes: Routes = [
@@ -20,5 +21,6 @@ export const routes: Routes = [
     { path: 'business/history', component: BusinessHistoryComponent},
     { path: 'business/profile', component: BusinessProfileComponent},
     { path: 'business/order', component: BusinessOrderComponent},
+    {path: 'store' , component: StoreComponent},
 
 ];

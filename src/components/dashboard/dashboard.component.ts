@@ -14,7 +14,7 @@ import { UserdataService } from '../../services/userdata.service';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent{
+export class DashboardComponent implements OnInit {
   screenWidth: number = window.innerWidth;
 
   isModalOpen: boolean = false;
@@ -24,7 +24,6 @@ export class DashboardComponent{
   name : any = '';
   public chart: any;
   whatAmI = '';
-  
   
 
 
@@ -58,6 +57,9 @@ closeModal() {
 
   async ngOnInit() {
     this.screenWidth = window.innerWidth;
+    this.authService.user$.subscribe(async user => {
+      this.name = await this.firestoreService.getBusinessName(user?.uid || '');
+    })
     
   }
 
