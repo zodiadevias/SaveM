@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { CommonModule } from '@angular/common';
 import { BusinessMenuModalComponent } from "../../modal/business-menu-modal/business-menu-modal.component";
@@ -7,115 +7,167 @@ import { MenuItem } from '../../models/menu-item.model';
 import { FirestoreService } from '../../services/firestore.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { inject } from '@angular/core';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 
 @Component({
   selector: 'app-business-menu',
-  imports: [HeaderComponent, CommonModule, BusinessMenuModalComponent, BusinessMenuEditModalComponent, BusinessMenuEditModalComponent],
+  standalone: true,
+  imports: [HeaderComponent, CommonModule, BusinessMenuModalComponent, BusinessMenuEditModalComponent],
   templateUrl: './business-menu.component.html',
   styleUrl: './business-menu.component.css'
 })
-export class BusinessMenuComponent implements OnInit{
+export class BusinessMenuComponent implements OnInit {
 
   router = inject(Router);
-
   constructor(private firestoreService: FirestoreService, private authService: AuthService) {}
 
-  async ngOnInit() {
-    try{
-      this.authService.user$.subscribe(async user => {
-        const role = await this.firestoreService.getUserRole(user?.uid || '');
-        if (role === 'business') {
-          return;
-        }else{
-          this.router.navigateByUrl('/dashboard');
-        }
-      });
-    }catch (error) {
-      console.error(error);
+  items: MenuItem[] = [];
+
+  isModalOpen: boolean = false; // Add new item modal
+  isEditModalOpen: boolean = false; // Edit item modal
+  showDelete: boolean = false;
+  selectedForDelete: Set<number> = new Set();
+  storeId: string = '';
+
+  selectedItem: MenuItem | null = null; // Currently editing item
+
+  async ngOnInit(): Promise<void> {
+    const user = await this.authService.currentUser;
+    if (user) {
+      this.storeId = user.uid;
+      this.loadItems();
+    } else {
+      this.router.navigate(['/dashboard']);
     }
-    
   }
-  
-items: MenuItem[] = [
-  {id: '1', name: 'Banana Bread', description: 'Delicious banana bread', stock: 10, price: 50, discount: 20, finalPrice: 40, imageUrl: 'img/logo.png', isAvailable: true},
-  {id: '2', name: 'Chocolate Cake', description: 'Delicious chocolate cake', stock: 5, price: 100, discount: 10, finalPrice: 90, imageUrl: 'img/logo.png', isAvailable: true},
-  {id: '3', name: 'Cinnamon Roll', description: 'Delicious cinnamon roll', stock: 15, price: 25, discount: 15, finalPrice: 20, imageUrl: 'img/logo.png', isAvailable: true},
-  {id: '4', name: 'Muffin', description: 'Delicious muffin', stock: 8, price: 30, discount: 5, finalPrice: 25, imageUrl: 'img/logo.png', isAvailable: true},
-  {id: '5', name: 'Donut', description: 'Delicious donut', stock: 12, price: 15, discount: 0, finalPrice: 15, imageUrl: 'img/logo.png', isAvailable: true}
-];
 
+  async loadItems() {
+    if (!this.storeId) return;
 
-
-  isModalOpen: boolean = false;
-  isVisible: boolean = false;
-  isEditModalOpen: boolean = false;
-  isEditVisible: boolean = false;
-  showDelete : boolean = false;
-
+    this.firestoreService.getMenuItems(this.storeId).subscribe((items) => {
+      this.items = items;
+    });
+  }
 
   openModal(): void {
-  this.isModalOpen = true;
-  this.isVisible = false;
+    this.isModalOpen = true;
   }
 
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
 
-  id: string = '';
-  name: string = '';
-  description: string = '';
-  stock: number = 0;
-  price: number = 0;
-  discount: number = 0;
-  finalPrice: number = 0;
-  imageUrl: string = '';
-  isAvailable: boolean = false;
+  async handleSaveProduct(product: any) {
+    const user = await this.authService.currentUser;
+    if (!user) return;
 
-  openEditModal(id: string, name: string, description: string, stock: number, price: number, discount: number, finalPrice: number, imageUrl: string, isAvailable: boolean): void {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.stock = stock;
-    this.price = price;
-    this.discount = discount;
-    this.finalPrice = finalPrice;
-    this.imageUrl = imageUrl;
-    this.isAvailable = isAvailable;
-    
+    const productWithOwner = {
+      ...product,
+      ownerId: user.uid,
+    };
+
+    await this.firestoreService.addMenuItem(this.storeId, productWithOwner);
+    this.closeModal();
+  }
+
+  // Open edit modal and set the selected item
+  openEditModal(item: MenuItem): void {
+    this.selectedItem = item;
     this.isEditModalOpen = true;
-    this.isEditVisible = false;
+  }
+
+  closeEditModal(): void {
+    this.isEditModalOpen = false;
+    this.selectedItem = null;
+  }
+
+  async uploadImageToStorage(itemId: string, file: File): Promise<string> {
+  const storage = getStorage(); // Gets default Firebase app storage
+  const storageRef = ref(storage, `menu-items/${itemId}/${file.name}`);
+
+  try {
+    await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
+    return downloadURL;
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  }
+}
+
+
+  // Handle saving the updated item from the edit modal
+  async handleEditSave(data: any) {
+  if (!this.storeId) return;
+
+  const updatePayload: Record<string, any> = {
+  name: data.name,
+  description: data.description,
+  stock: data.stock,
+  price: data.price,
+  discount: data.discount,
+  finalPrice: data.finalPrice,
+  isAvailable: data.isAvailable,
+};
+
+
+  try {
+    // If image file is uploaded, you need to upload to Firebase Storage first and get URL
+    if (data.imageFile) {
+      const imageUrl = await this.uploadImageToStorage(data.id, data.imageFile);
+      updatePayload['imageUrl'] = imageUrl;
     }
 
-closeModal() {
-  this.isModalOpen = false;
+    await this.firestoreService.updateMenuItem(this.storeId, data.id, updatePayload);
+    this.isEditModalOpen = false;
+    this.loadItems(); // refresh your list
+  } catch (error) {
+    console.error('Error updating item:', error);
+  }
 }
 
-closeEditModal() {
-  this.isEditModalOpen = false;
+
+  async handleDeleteProduct(itemId: string) {
+  if (!this.storeId) return;
+
+  try {
+    await this.firestoreService.deleteMenuItem(this.storeId, itemId);
+    // Optionally refresh your items list after deletion
+    this.loadItems();
+
+    // Close edit modal after deletion
+    this.isEditModalOpen = false;
+  } catch (error) {
+    console.error('Error deleting item:', error);
+  }
 }
 
 
-toggleShowDelete(){
-  if(this.showDelete == true){
+  toggleShowDelete(): void {
+    if (this.showDelete) {
+      this.selectedForDelete.clear();
+    }
+    this.showDelete = !this.showDelete;
+  }
+
+  toggleDeleteSelection(index: number): void {
+    if (this.selectedForDelete.has(index)) {
+      this.selectedForDelete.delete(index);
+    } else {
+      this.selectedForDelete.add(index);
+    }
+  }
+
+  deleteSelected(): void {
+    const itemsToDelete = Array.from(this.selectedForDelete);
+    for (const index of itemsToDelete) {
+      const item = this.items[index];
+      this.firestoreService.deleteMenuItem(this.storeId, item.id ?? '');
+    }
+
+    this.items = this.items.filter((_, index) => !this.selectedForDelete.has(index));
     this.selectedForDelete.clear();
+    this.showDelete = false;
   }
-  this.showDelete = !this.showDelete;
-}
-
-
-selectedForDelete: Set<number> = new Set();
-
-toggleDeleteSelection(index: number): void {
-  if (this.selectedForDelete.has(index)) {
-    this.selectedForDelete.delete(index);
-  } else {
-    this.selectedForDelete.add(index);
-  }
-}
-
-deleteSelected(): void {
-  this.items = this.items.filter((_, index) => !this.selectedForDelete.has(index));
-  this.selectedForDelete.clear();
-  this.showDelete = false;
-}
-  
 }

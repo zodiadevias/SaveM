@@ -8,6 +8,7 @@ import { MenuItem } from '../models/menu-item.model';
 import { Order } from '../models/order.model';
 import { Chat } from '../models/chat.model';
 import { Observable } from 'rxjs';
+import { deleteDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -62,12 +63,9 @@ export class FirestoreService {
   }
 
   // 5. Add food item to menu
-  async addMenuItem(storeId: string, item: MenuItem) {
-    const ref = collection(this.firestore, `stores/${storeId}/menu`);
-    await addDoc(ref, {
-      ...item,
-      createdAt: Timestamp.now(),
-    });
+  addMenuItem(storeId: string, item: any) {
+    const menuCollection = collection(this.firestore, `stores/${storeId}/menu`);
+    return addDoc(menuCollection, item);
   }
 
   // 6. Get menu items
@@ -76,6 +74,20 @@ export class FirestoreService {
     return collectionData(ref, { idField: 'id' }) as Observable<MenuItem[]>;
   }
 
+  // 6.2 Update menu item
+  updateMenuItem(storeId: string, itemId: string, item: any): Promise<void> {
+    const menuCollection = collection(this.firestore, `stores/${storeId}/menu`);
+    const itemRef = doc(menuCollection, itemId);
+    return updateDoc(itemRef, item);
+  }
+  
+  
+  // 6.1 Delete menu item
+  deleteMenuItem(storeId: string, itemId: string): Promise<void> {
+    const menuCollection = collection(this.firestore, `stores/${storeId}/menu`);
+    const itemRef = doc(menuCollection, itemId);
+    return deleteDoc(itemRef);
+  }
   // 7. Place order
   async placeOrder(order: Order) {
     const ref = collection(this.firestore, 'orders');

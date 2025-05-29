@@ -1,7 +1,7 @@
 @if(whatAmI == 'guest'){
 
     <div class="header">
-        <div class="logo-title">
+        <div class="logo-title" routerLink="/dashboard">
             <img src="img/logo.png" alt="logo" class="logo">
             <span>SaveMunch</span>
         </div>
@@ -16,8 +16,8 @@
         <div class="header-right-links" id="header-right-links" >
             <a (click)="login('guest')">Login</a>
             <a (click)="signup('guestRegister')">Sign Up</a>
-            <a href="">Chat Support</a>
-            <a href="">Sign Up for Business</a>
+            <a routerLink="/chatbot">Chat Support</a>
+            <a routerLink="/business/register">Sign Up for Business</a>
         </div>
 
         <app-modal [isOpen]="isModalOpen" (closeModal)="closeModal()"></app-modal>
@@ -40,9 +40,9 @@
             <a routerLink="/dashboard">Dashboard</a>
             <a routerLink="/business/order">Orders</a>
             <a routerLink="/business/menu">Menu Management</a>
-            <a href="">Reviews</a>
-            <a href="">Inbox</a>
-            <a href="">Chat Support</a>
+            <a routerLink="/business/reviews">Reviews</a>
+            <a routerLink="/business/inbox">Inbox</a>
+            
             <a href="" style="background-color: red;" (click)="logout()">Logout</a>
         </div>
         
@@ -67,7 +67,7 @@
             <a href="">Pickup</a>
             <a href="">Shops</a>
             <a href="">Inbox</a>
-            <a href="">Chat Support</a>
+            <a routerLink="/chatbot">Chat Support</a>
             <a style="background-color: red;" (click)="logout()">Logout</a>
         </div>
         

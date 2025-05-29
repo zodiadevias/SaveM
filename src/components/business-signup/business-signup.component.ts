@@ -95,12 +95,68 @@ export class BusinessSignupComponent implements OnInit{
   }
 
 
-  async onRegister(): Promise<void> {
-    if (!this.fullname || !this.businessName || !this.email || !this.password || !this.confirmPassword || !this.businessAddress || !this.contactNumber) {
-      this.error = 'Please fill in all required fields.';
-      this.openModal();
-      return;
-    }
+//   async onRegister(): Promise<void> {
+//     if (!this.fullname || !this.businessName || !this.email || !this.password || !this.confirmPassword || !this.businessAddress || !this.contactNumber) {
+//       this.error = 'Please fill in all required fields.';
+//       this.openModal();
+//       return;
+//     }
+//   if (!this.logoFile) {
+//     this.error = 'Please upload a logo.';
+//     this.openModal();
+//     return;
+//   }
+
+//   if (this.password !== this.confirmPassword) {
+//     this.error = 'Passwords do not match.';
+//     this.openModal();
+//     return;
+//   }
+
+//   try {
+//     // Step 1: Register user first
+//     const auth = getAuth();
+//     const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
+//     const uid = userCredential.user.uid;
+
+//     // Step 2: Upload logo after authentication
+//     const filePath = `store_logos/${uid}/${uuidv4()}_${this.logoFile.name}`;
+//     const fileRef = ref(this.storage, filePath);
+//     await uploadBytes(fileRef, this.logoFile);
+//     const logoUrl = await getDownloadURL(fileRef);
+
+//     // Step 3: Save store data to 'stores' collection with document ID = uid
+//     const storeDocRef = doc(this.firestore, 'users', uid);
+//     await setDoc(storeDocRef, {
+//       ownerId: uid,  // must be 'ownerId' to match rules
+//       fullName: this.fullname,
+//       businessName: this.businessName,
+//       businessAddress: this.businessAddress,
+//       contactNumber: this.contactNumber,
+//       email: this.email,
+//       logoUrl: logoUrl,
+//       role: 'business',
+//       createdAt: new Date(),
+//     });
+
+//     this.error = 'Store registered successfully!';
+//     this.openModal();
+//     this.clearfields();
+//     this.router.navigate(['/dashboard']);
+//   } catch (error) {
+//     console.error('Error during registration:', error);
+//     this.error = 'Something went wrong. Please try again.';
+//     this.openModal();
+//   }
+// }
+
+async onRegister(): Promise<void> {
+  if (!this.fullname || !this.businessName || !this.email || !this.password || !this.confirmPassword || !this.businessAddress || !this.contactNumber) {
+    this.error = 'Please fill in all required fields.';
+    this.openModal();
+    return;
+  }
+
   if (!this.logoFile) {
     this.error = 'Please upload a logo.';
     this.openModal();
@@ -114,40 +170,63 @@ export class BusinessSignupComponent implements OnInit{
   }
 
   try {
-    // Step 1: Register user first
     const auth = getAuth();
     const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
     const uid = userCredential.user.uid;
 
-    // Step 2: Upload logo after authentication
+    // Upload store logo
     const filePath = `store_logos/${uid}/${uuidv4()}_${this.logoFile.name}`;
     const fileRef = ref(this.storage, filePath);
     await uploadBytes(fileRef, this.logoFile);
     const logoUrl = await getDownloadURL(fileRef);
 
-    // Step 3: Save store data to 'stores' collection with document ID = uid
-    const storeDocRef = doc(this.firestore, 'users', uid);
-    await setDoc(storeDocRef, {
-      ownerId: uid,  // must be 'ownerId' to match rules
+    // Save user data to 'users' collection
+    const userDocRef = doc(this.firestore, 'users', uid);
+    await setDoc(userDocRef, {
+      uid,
       fullName: this.fullname,
       businessName: this.businessName,
       businessAddress: this.businessAddress,
       contactNumber: this.contactNumber,
       email: this.email,
-      logoUrl: logoUrl,
+      logoUrl,
       role: 'business',
       createdAt: new Date(),
     });
+
+    // Save store data to 'stores' collection (same uid as the user)
+    const storeDocRef = doc(this.firestore, 'stores', uid);
+    await setDoc(storeDocRef, {
+      ownerId: uid,
+      storeName: this.businessName,
+      storeAddress: this.businessAddress,
+      logoUrl,
+      createdAt: new Date(),
+    });
+
+    // Optional: Add default product as example (or skip this)
+    // const productRef = collection(this.firestore, `stores/${uid}/products`);
+    // await addDoc(productRef, {
+    //   name: 'Sample Product',
+    //   stock: 0,
+    //   description: '',
+    //   originalPrice: 0,
+    //   discount: 0,
+    //   finalPrice: 0,
+    //   createdAt: new Date(),
+    // });
 
     this.error = 'Store registered successfully!';
     this.openModal();
     this.clearfields();
     this.router.navigate(['/dashboard']);
+
   } catch (error) {
     console.error('Error during registration:', error);
     this.error = 'Something went wrong. Please try again.';
     this.openModal();
   }
 }
+
   
 }
