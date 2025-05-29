@@ -5,9 +5,9 @@
         <div class="modal-header">
             <div class="name">
                 @if(toggleEditName == false){
-                    <h2 (click)="toggleEdit()">{{name}}</h2>      
+                    <h2 (click)="toggleEdit()">{{itemName}}</h2>      
                 }@else {
-                    <input type="text" placeholder="{{name}}" class="edit-item-name">
+                    <input type="text" placeholder="{{itemName}}" class="edit-item-name">
                     <span><i class="save fa-solid fa-check" (click)="toggleEdit()"></i></span>
                 }
             </div>
@@ -18,24 +18,24 @@
         <div class="modal-body">
             @if(toggleEditDescription == false){
                 <div class="item-description" (click)="toggleEditDesc()">
-                    {{description}}
+                    {{itemDescription}}
                 </div>
             }@else {
                     <div style="height: 100px">
                         <div class="description">
-                        <textarea class="edit-item-description" placeholder="{{description}}" [(ngModel)]="description" rows="4" cols="30" maxlength="50" (input)="enforceLineLimit($event)"></textarea>
+                        <textarea class="edit-item-description" placeholder="{{itemDescription}}" [(ngModel)]="itemDescription" rows="4" cols="30" maxlength="50" (input)="enforceLineLimit($event)"></textarea>
                     
                         <span><i class="save fa-solid fa-check" (click)="toggleEditDesc()"></i></span>
                         </div>
-                        <div style="font-size: 0.8rem;margin-top: 10px;">{{ 50 - (description.length || 0) }} characters remaining    
+                        <div style="font-size: 0.8rem;margin-top: 10px;">{{ 50 - (itemDescription.length || 0) }} characters remaining    
                         </div>
                     </div>
                 
                 
             }
 
-            <div class="image-container" [ngStyle]="{'background-image': imageUrl ? 'url(' + imageUrl + ')' : ''}" (click)="onBoxClick()">
-            <span class="upload-text" *ngIf="!imageUrl"><img class="old-image" src="img/logo.png"></span>
+            <div class="image-container" [ngStyle]="{'background-image': itemImageUrl ? 'url(' + itemImageUrl + ')' : ''}" (click)="onBoxClick()">
+            <span class="upload-text" *ngIf="!itemImageUrl"><img class="old-image" src="img/logo.png"></span>
         </div>
         <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)" hidden />
 
@@ -49,41 +49,41 @@
                 </tr>
                 <tr>
                     @if(toggleStock == false){
-                        <td (click)="toggleStock = true">{{stock}}</td>    
+                        <td (click)="toggleStock = true">{{itemStock}}</td>    
                     }@else {
                         <td>
                             <div class="row-input">
-                                <input type="number" placeholder="{{stock}}" [(ngModel)]="stock">
+                                <input type="number" placeholder="{{itemStock}}" [(ngModel)]="itemStock">
                                 <span><i class="save fa-solid fa-check" (click)="toggleStock = false"></i></span>
                             </div>
                         </td>
                     }
 
                     @if(togglePrice == false){
-                        <td (click)="togglePrice = true">&#8369;{{price}}</td>    
+                        <td (click)="togglePrice = true">&#8369;{{itemPrice}}</td>    
                     }@else {
                         <td>
                             <div class="row-input">
-                                <input type="number" placeholder="{{price}}" [(ngModel)]="price">
+                                <input type="number" placeholder="{{itemPrice}}" [(ngModel)]="itemPrice">
                                 <span><i class="save fa-solid fa-check" (click)="togglePrice = false"></i></span>
                             </div>
                         </td>
                     }
                     
                     @if(toggleDiscount == false){
-                        <td (click)="toggleDiscount = true">{{discount}}%</td>    
+                        <td (click)="toggleDiscount = true">{{itemDiscount}}%</td>    
                     }@else {
                         <td>
                             <div class="row-input">
                                 
-                                <input type="number" placeholder="{{discount}}" [(ngModel)]="discount">
+                                <input type="number" placeholder="{{itemDiscount}}" [(ngModel)]="itemDiscount">
                                 <span><i class="save fa-solid fa-check" (click)="toggleDiscount = false"></i></span>
                             </div>
                         </td>
                     }
                     
                     
-                        <td>&#8369;{{finalPrice}}</td>    
+                        <td>&#8369;{{itemFinalPrice}}</td>    
                     
                     
 

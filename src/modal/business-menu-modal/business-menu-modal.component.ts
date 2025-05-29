@@ -18,6 +18,14 @@ export class BusinessMenuModalComponent {
   finalPrice: number = this.price * (this.discount / 100.0);
 
   @Input() isOpen: boolean = false;
+  @Input() itemId: string = '';
+  @Input() itemName: string = '';
+  @Input() itemDescription: string = '';
+  @Input() itemStock: number = 0;
+  @Input() itemPrice: number = 0;
+  @Input() itemDiscount: number = 0;
+  @Input() itemFinalPrice: number = 0;
+  @Input() itemImageUrl: string = '';
   @Output() closeModal = new EventEmitter<void>();
 
   close(): void {
