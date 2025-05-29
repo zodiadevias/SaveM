@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #1A5319;
+}
+
+.greet {
+    background: radial-gradient(circle at 50% 50%, #508D4E 0%, #1A5319 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    width: 250px;
+    height: auto;
+}
+
+input {
+    border: 2px solid #1A5319;
+    border-radius: 10px;
+    height: 30px;
+    width: 100%;
+    background-color: #FEFAE0;
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+td {
+    padding: 5px 0;
+}
+
+.scroll {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.parent-content {
+    background-color: #FEFAE0;
+    border: 2px solid #1A5319;
+    border-radius: 20px;
+    width: 400px;
+    max-width: 90%;
+    padding: 25px 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content {
+    width: 100%;
+}
+
+.btn-save,
+.btn-verify,
+.btn-del {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    color: #FEFAE0;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: 15px auto 0 auto;
+}
+.btn-social {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  color: #FEFAE0;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 0;
+  border: 2px solid;
+}
+
+.google {
+  background-color: #DB4437; /* Google red */
+  border-color: #DB4437;
+}
+
+.facebook {
+  background-color: #4267B2; /* Facebook blue */
+  border-color: #4267B2;
+}
+.btn-save {
+    background-color: #1A5319;
+    border: 2px solid #1A5319;
+}
+
+.btn-del {
+    background-color: red;
+    border: 2px solid red;
+}
+.btn-verify {
+    background-color: #1A5319;
+    border: 2px solid #1A5319;
+}
+
+       /* RESPOSIVENESS */
+@media (max-width: 412px) {
+    .scroll {
+        flex-direction: column;
+        padding: 15px 10px;
+    }
+
+    .parent-content {
+        position: relative;
+        left: 20px;
+        width: 100%;
+        height: auto;
+    }
+
+    .logo {
+        width: 200px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .btn-save,
+    .btn-verify,
+    .btn-del {
+        width: 100%;
+    }
+}
