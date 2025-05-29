@@ -59,7 +59,7 @@ closeModal() {
     this.screenWidth = window.innerWidth;
     this.authService.user$.subscribe(async user => {
       this.name = await this.firestoreService.getBusinessName(user?.uid || '');
-    })
+    });
     
   }
 

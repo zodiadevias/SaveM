@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { CommonModule } from '@angular/common';
 import { BusinessMenuModalComponent } from "../../modal/business-menu-modal/business-menu-modal.component";
 import { BusinessMenuEditModalComponent } from "../../modal/business-menu-edit-modal/business-menu-edit-modal.component";
 import { MenuItem } from '../../models/menu-item.model';
+import { FirestoreService } from '../../services/firestore.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-business-menu',
@@ -11,8 +15,27 @@ import { MenuItem } from '../../models/menu-item.model';
   templateUrl: './business-menu.component.html',
   styleUrl: './business-menu.component.css'
 })
-export class BusinessMenuComponent {
+export class BusinessMenuComponent implements OnInit{
 
+  router = inject(Router);
+
+  constructor(private firestoreService: FirestoreService, private authService: AuthService) {}
+
+  async ngOnInit() {
+    try{
+      this.authService.user$.subscribe(async user => {
+        const role = await this.firestoreService.getUserRole(user?.uid || '');
+        if (role === 'business') {
+          return;
+        }else{
+          this.router.navigateByUrl('/dashboard');
+        }
+      });
+    }catch (error) {
+      console.error(error);
+    }
+    
+  }
   
 items: MenuItem[] = [
   {id: '1', name: 'Banana Bread', description: 'Delicious banana bread', stock: 10, price: 50, discount: 20, finalPrice: 40, imageUrl: 'img/logo.png', isAvailable: true},
