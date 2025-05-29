@@ -11,15 +11,28 @@ import { getFirestore } from 'firebase/firestore';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NotificationModalComponent } from '../../modal/notification-modal/notification-modal.component';
 
 @Component({
   selector: 'app-business-signup',
-  imports: [HeaderComponent, CommonModule, FormsModule, HttpClientModule],
+  imports: [HeaderComponent, CommonModule, FormsModule, HttpClientModule, NotificationModalComponent],
   templateUrl: './business-signup.component.html',
   styleUrl: './business-signup.component.css'
 })
 export class BusinessSignupComponent implements OnInit{
 
+  isModalOpen = false;
+  isVisible = false;
+
+
+  openModal(): void {
+  this.isModalOpen = true;
+  this.isVisible = false;
+  }
+
+  closeModal() {
+  this.isModalOpen = false;
+}
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
@@ -84,16 +97,19 @@ export class BusinessSignupComponent implements OnInit{
 
   async onRegister(): Promise<void> {
     if (!this.fullname || !this.businessName || !this.email || !this.password || !this.confirmPassword || !this.businessAddress || !this.contactNumber) {
-      alert('Please fill in all fields.');
+      this.error = 'Please fill in all required fields.';
+      this.openModal();
       return;
     }
   if (!this.logoFile) {
-    alert('Please upload a logo image.');
+    this.error = 'Please upload a logo.';
+    this.openModal();
     return;
   }
 
   if (this.password !== this.confirmPassword) {
-    alert('Passwords do not match.');
+    this.error = 'Passwords do not match.';
+    this.openModal();
     return;
   }
 
@@ -123,12 +139,14 @@ export class BusinessSignupComponent implements OnInit{
       createdAt: new Date(),
     });
 
-    alert('Store registered successfully!');
+    this.error = 'Store registered successfully!';
+    this.openModal();
     this.clearfields();
     this.router.navigate(['/dashboard']);
   } catch (error) {
     console.error('Error during registration:', error);
-    alert('An error occurred. Please try again.');
+    this.error = 'Something went wrong. Please try again.';
+    this.openModal();
   }
 }
   

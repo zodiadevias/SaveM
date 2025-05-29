@@ -1,1 +1,22 @@
-<p>notification-modal works!</p>
+<div class="modal" *ngIf="isOpen" (click)="close()">
+      
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="close()">&times;</span>
+        <div class="modal-header">
+            <h2>Notification</h2>
+        </div>
+        <div class="modal-body">
+          
+            <div class="msg-body">
+                <p>{{message}}</p>
+            </div>
+            
+        
+        
+        
+        <div class="modal-footer">
+          
+        </div>
+        
+      </div>
+    </div>

@@ -3,6 +3,7 @@
 </div>
 
 <div class="content">
+    <app-notification-modal [isOpen]="isModalOpen" [message]="error" (closeModal)="closeModal()"></app-notification-modal>
     <div class="portrait-container">
         <h1>Store Logo</h1>
         <div class="image-box" [ngStyle]="{'background-image': logoPreview ? 'url(' + logoPreview + ')' : ''}" (click)="onBoxClick()">
