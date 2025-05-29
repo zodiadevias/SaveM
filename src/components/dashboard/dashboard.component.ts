@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { UserdataService } from '../../services/userdata.service';
 import { Store } from '../../models/store.model';
-import { lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   name : any = '';
   public chart: any;
   whatAmI = '';
+    stores: Store[] = [];
   
 
 
@@ -63,6 +64,10 @@ closeModal() {
       
     });
 
+    this.firestoreService.getAllStores().subscribe((stores) => {
+    this.stores = stores;
+  });
+
     
     
   }
@@ -81,17 +86,10 @@ closeModal() {
   }
 
 
-  
-stores: Store[] | undefined= [];
 
-async getStores() {
-  try {
-    this.stores = await lastValueFrom(this.firestoreService.getStores());
-    console.log('Stores:', this.stores);
-  } catch (error) {
-    console.error('Error retrieving stores:', error);
-  }
-}
+
+
+  
 
 
 }
