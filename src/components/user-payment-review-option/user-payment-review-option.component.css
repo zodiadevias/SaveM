@@ -1,0 +1,141 @@
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: black;
+  margin: 10px 0;
+}
+
+p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  margin: 6px 0;
+}
+.greet {
+  background: radial-gradient(circle at 50% 50%, #508D4E 0%, #1A5319 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #FEFAE0;
+  height: 18.5rem;
+}
+.container {
+  background-color: #FEFAE0;
+  border-radius: 8px;
+  padding: 30px;
+  width: 85%;
+  margin: -250px auto 40px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.info {
+  background-color: #80AF81;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 48%;
+  height: auto;
+}
+
+.payment_method {
+  background-color: #80AF81;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cod, .gcash {
+  background-color: #FEFAE0;
+  color: black;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cod input, .gcash input {
+  margin-right: 10px;
+}
+
+.right {
+  background-color: #D6EFD8;
+  padding: 20px;
+  border-radius: 8px;
+  color: #1A5319;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.right h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.right p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.right hr {
+  margin: 15px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+.right h2 {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.right h2 p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 20px;
+  color: #1A5319;
+}
+button {
+  display: block;
+  border-radius: 5px;
+  border: 2px solid #1A5319;
+  background-color: #1A5319;
+  color: #FEFAE0;
+  padding: 16px;
+  font-size: 16px;
+  width: 300px;
+  margin: 30px auto 0 auto;
+  cursor: pointer;
+}
+@media (max-width: 412px) {
+  .greet {
+    height: 14rem;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .info, .payment_method, .right {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}

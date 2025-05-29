@@ -1,10 +1,37 @@
 <app-header></app-header>
 
-<div class="greet">
-     <img src="img/logo-with-title.svg" alt="logo" class="logo">
-</div>
+<div class="greet"></div>
 <br>
 
 <div class="container">
-    
+    <div class="info">
+        <h2>{{option}}</h2>
+        <p>📌{{address}}</p>
+        <h2>Personal Information</h2>
+        <p>👤{{name}}</p>
+        <p>📧{{email}}</p>
+        <p>📞{{phone}}</p>
+    </div>
+
+    <div class="payment_method">
+        <div class="cod">
+            <input type="radio" name="payment_method" id="cod" value="Cash on Delivery">
+            <label for="cod">Cash on Delivery</label>
+        </div>
+        <div class="gcash">
+            <input type="radio" name="payment_method" id="gcash" value="Gcash">
+            <label for="gcash">Gcash</label>
+        </div>
+    </div>
+
+    <div class="right">
+        <h1>Your order's from</h1>
+        <p>{{shopName}}, {{shopAddress}}</p>
+        <p>{{quantity}} {{product}} {{price}}</p>
+        <hr>
+        <p>Subtotal {{subtotal}}</p>
+        <h2>Total: <p>{{total}}</p></h2>
+        <p>(incl, fee and tax)</p>
+    </div>
+    <button>Place Order</button>
 </div>
