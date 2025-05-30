@@ -27,7 +27,6 @@ h1 {
 
 /* MAP CONTAINER */
 .map-container {
-
   
   margin-top: -190px;
   height: auto;
@@ -82,7 +81,7 @@ h1 {
 }
 
 /* RESPONSIVE */
-@media (max-width: 1200px) {
+@media (max-width: 880px) {
   .bottom {
     flex-direction: column;
     width: 90%;
@@ -95,8 +94,10 @@ h1 {
     margin: 0 auto;
   }
 
-  .map-container {
-    width: 90%;
-    margin-top: -150px;
+  .map {
+    width: 100%;
   }
+
+  
+  
 }

@@ -65,7 +65,7 @@ export class FirestoreService {
   // 4. Get store details
   getStore(storeId: string): Observable<Store> {
     const ref = doc(this.firestore, `stores/${storeId}`);
-    return docData(ref, { idField: 'uid' }) as Observable<Store>;
+    return docData(ref, { idField: 'id' }) as Observable<Store>;
   }
 
   // 5. Get stores

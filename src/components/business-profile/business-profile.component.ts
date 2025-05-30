@@ -8,10 +8,12 @@ import { AuthService } from '../../services/auth.service';
 import { reauthenticateWithCredential, EmailAuthProvider, updatePassword ,deleteUser, signOut } from 'firebase/auth';
 import { doc, deleteDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { NotificationModalComponent } from '../../modal/notification-modal/notification-modal.component';
+
 @Component({
   selector: 'app-business-profile',
   standalone: true,
-  imports: [HeaderComponent, FormsModule, MapPickerComponent],
+  imports: [HeaderComponent, FormsModule, MapPickerComponent, NotificationModalComponent],
   templateUrl: './business-profile.component.html',
   styleUrl: './business-profile.component.css'
 })
@@ -51,17 +53,20 @@ export class BusinessProfileComponent implements OnInit {
   saveProfile() {
     const uid = this.auth.currentUser?.uid;
     if (!uid) {
-      alert('User not logged in.');
+      this.notif = 'User not logged in.';
+      this.openModal();
       return;
     }
 
     if (!this.businessName.trim()) {
-      alert('Business name is required.');
+      this.notif = 'Business name is required.';
+      this.openModal();
       return;
     }
 
     if (this.lat === null || this.lng === null) {
-      alert('Please select a location.');
+      this.notif = 'Please select a location.';
+      this.openModal();
       return;
     }
 
@@ -74,10 +79,14 @@ export class BusinessProfileComponent implements OnInit {
     };
 
     this.firestoreService.updateUserProfile(uid, updatedData)
-      .then(() => alert('Profile updated successfully!'))
+      .then(() => {
+        this.notif = 'Profile updated.';
+        this.openModal();
+      })
       .catch(err => {
         console.error(err);
-        alert('Failed to update profile.');
+        this.notif = 'Failed to update profile.';
+        this.openModal();
       });
   }
 
@@ -88,20 +97,36 @@ export class BusinessProfileComponent implements OnInit {
 newPassword: string = '';
 confirmPassword: string = '';
 
+isModalOpen = false;
+  isVisible = false;
+
+
+  openModal(): void {
+  this.isModalOpen = true;
+  this.isVisible = false;
+  }
+
+  closeModal() {
+  this.isModalOpen = false;
+}
+notif = '';
 async changePassword() {
   if (!this.oldPassword || !this.newPassword || !this.confirmPassword) {
-    alert('All fields are required.');
+    this.notif = 'Please fill in all fields.';
+    this.openModal();
     return;
   }
 
   if (this.newPassword !== this.confirmPassword) {
-    alert('New passwords do not match.');
+    this.notif = 'New password and confirm password do not match.';
+    this.openModal();
     return;
   }
 
   const user = this.auth.currentUser;
   if (!user || !user.email) {
-    alert('User not authenticated.');
+    this.notif = 'User not logged in.';
+    this.openModal();
     return;
   }
 
@@ -109,7 +134,8 @@ async changePassword() {
     const credential = EmailAuthProvider.credential(user.email, this.oldPassword);
     await reauthenticateWithCredential(user, credential);
     await updatePassword(user, this.newPassword);
-    alert('Password changed successfully.');
+    this.notif = 'Password changed successfully.';
+    this.openModal();
     
     // Clear inputs
     this.oldPassword = '';
@@ -118,11 +144,14 @@ async changePassword() {
   } catch (error: any) {
     console.error('Error changing password:', error);
     if (error.code === 'auth/wrong-password') {
-      alert('Incorrect old password.');
+      this.notif = 'Incorrect old password.';
+      this.openModal();
     } else if (error.code === 'auth/weak-password') {
-      alert('Password should be at least 6 characters.');
+      this.notif = 'Password is too weak.';
+      this.openModal();
     } else {
-      alert('Failed to change password.');
+      this.notif = 'Failed to change password.';
+      this.openModal();
     }
   }
 }
@@ -133,7 +162,8 @@ async deleteAccount() {
   const user = this.auth.currentUser;
 
   if (!user || !user.email) {
-    alert('No authenticated user.');
+    this.notif = 'No user logged in.';
+    this.openModal();
     return;
   }
 
@@ -163,16 +193,19 @@ async deleteAccount() {
     // Log out the user after deletion
     await signOut(this.auth);
 
-    alert('Account deleted and logged out successfully.');
+    this.notif = 'Account deleted successfully.';
+    this.openModal();
     // Optionally redirect, e.g.
     this.router.navigate(['/dashboard']);
 
   } catch (error: any) {
     console.error('Delete error:', error);
     if (error.code === 'auth/wrong-password') {
-      alert('Incorrect password.');
+      this.notif = 'Incorrect password.';
+      this.openModal();
     } else {
-      alert('Failed to delete account. You may need to reauthenticate.');
+      this.notif = 'Failed to delete account.';
+      this.openModal();
     }
   }
 }

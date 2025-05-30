@@ -3,6 +3,7 @@
         <div class="parent-content">
             <h1>Store Profile</h1>
             <div class="content">
+                <app-notification-modal [isOpen]="isModalOpen" [message]="notif" (closeModal)="closeModal()"></app-notification-modal>
                 <table>
                     <tr>
                         <td>Business Name</td>

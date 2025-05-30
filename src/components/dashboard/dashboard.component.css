@@ -89,6 +89,11 @@ h1{
     transition: transform 0.3s ease-in-out;
 }
 
+.near-picks-img{
+    width: 100px;
+    height: 100px;
+}
+
 
 
 

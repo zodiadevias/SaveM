@@ -66,6 +66,7 @@ closeModal() {
 
     this.firestoreService.getAllStores().subscribe((stores) => {
     this.stores = stores;
+    console.log(this.stores);
   });
 
     
