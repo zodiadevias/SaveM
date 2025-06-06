@@ -60,7 +60,10 @@
         </div>
         <h1>Near You</h1>
         <div class="picks">
-            <div *ngFor="let store of stores" class="pick-item"><img class="near-picks-img" src="{{store.logoUrl}}"> {{store.storeName}}</div>
+            <div *ngFor="let store of stores" class="pick-item"><img class="near-picks-img" src="{{store.logoUrl}}"> 
+                <p>{{store.storeName}}</p>
+                
+            </div>
         </div>
 
     </div>
