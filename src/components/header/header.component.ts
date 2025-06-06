@@ -104,4 +104,9 @@ logout(){
     })
     .catch(err => console.error('Logout error:', err));
 }
+
+
+  setHeader(user: string){
+    this.globalService.setWhatAmIHead(user);
+  }
 }

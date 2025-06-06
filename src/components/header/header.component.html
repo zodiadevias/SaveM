@@ -16,8 +16,8 @@
         <div class="header-right-links" id="header-right-links" >
             <a (click)="login('guest')">Login</a>
             <a (click)="signup('guestRegister')">Sign Up</a>
-            <a routerLink="/chatbot">Chat Support</a>
-            <a routerLink="/business/register">Sign Up for Business</a>
+            <a routerLink="/chatbot" (click)="setHeader('none')">Chat Support</a>
+            <a routerLink="/business/register" (click)="setHeader('none')">Sign Up for Business</a>
         </div>
 
         <app-modal [isOpen]="isModalOpen" (closeModal)="closeModal()"></app-modal>
@@ -31,7 +31,7 @@
 @if(whatAmI == 'store'){
 
     <div class="header">
-        <div class="logo-title">
+        <div class="logo-title" routerLink="/dashboard">
             <img src="img/logo.png" alt="logo" class="logo">
             <span>SaveMunch</span>
         </div>
@@ -58,7 +58,7 @@
 
 @if(whatAmI == 'user'){
     <div class="header">
-        <div class="logo-title">
+        <div class="logo-title" routerLink="/dashboard">
             <img src="img/logo.png" alt="logo" class="logo">
             <span>SaveMunch</span>
         </div>
@@ -66,11 +66,22 @@
         <div class="header-right-links" id="header-right-links">
             <a href="">Delivery</a>
             <a href="">Pickup</a>
-            <a href="">Shops</a>
             <a href="">Inbox</a>
             <a routerLink="/chatbot">Chat Support</a>
             <a style="background-color: red;" (click)="logout()">Logout</a>
         </div>
+        
+    </div>
+}
+
+@if (whatAmI == 'none'){
+    <div class="header" routerLink="/dashboard" (click)="setHeader('guest')">
+        <div class="logo-title">
+            <img src="img/logo.png" alt="logo" class="logo">
+            <span>SaveMunch</span>
+        </div>
+        <i class="hamburger-icon fa-sharp fa-solid fa-bars"></i>
+        
         
     </div>
 }
