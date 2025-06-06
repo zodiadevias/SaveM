@@ -6,7 +6,10 @@
 <div class="map-modal" *ngIf="showMapModal">
   <div class="modal-content">
     <div #mapPicker class="map-container"></div>
-    <button (click)="confirmLocation()">Confirm Location</button>
-    <button (click)="closeMapModal()">Cancel</button>
+    <div class="button">
+      <button (click)="confirmLocation()">Confirm Location</button>
+      <button (click)="closeMapModal()">Cancel</button>
+    </div>
+    
   </div>
 </div>

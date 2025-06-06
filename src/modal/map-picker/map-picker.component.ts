@@ -48,7 +48,24 @@ export class MapPickerComponent {
   }
 
   private initPickerMap(): void {
-    let center = { lat: 14.84193, lng: 120.28671 }; // default
+    let center = { lat: 0, lng: 0 };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          center = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          this.mapPicker.setCenter(center);
+          this.pinMarker.setPosition(center);
+        },
+        () => {
+          console.error('Error: Unable to retrieve your location');
+        }
+      );
+    } else {
+      console.error("Error: Geolocation is not supported by this browser.");
+    }
 
     // Use defaultLocation if available
     if (this.defaultLocation) {
