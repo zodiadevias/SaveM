@@ -25,8 +25,10 @@ export class DashboardComponent implements OnInit {
   name : any = '';
   public chart: any;
   whatAmI = '';
-    stores: Store[] = [];
-  
+  stores: Store[] = [];
+  lat = 0;
+  lng = 0;
+  city: any = '';
 
 
 
@@ -69,6 +71,17 @@ closeModal() {
     console.log(this.stores);
   });
 
+  this.getCurrentCoordinates()
+    .then(coords => {
+      this.lat = coords.lat;
+      this.lng = coords.lng;
+      this.city = this.getCityFromCoordinates(this.lat, this.lng);
+      // Optional: Call geocoding here to get city
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
     
     
   }
@@ -85,6 +98,53 @@ closeModal() {
   onResize(event: any) {
     this.screenWidth = window.innerWidth;
   }
+
+
+  getCurrentCoordinates(): Promise<{ lat: number, lng: number }> {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject('Geolocation not supported');
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+      },
+      (error) => {
+        reject('Failed to get location: ' + error.message);
+      }
+    );
+  });
+}
+
+
+
+  async getCityFromCoordinates(lat: number, lng: number): Promise<string | null> {
+    const apiKey = 'AIzaSyAfeFxRviL6S-qG7OkcmvKG_THCdk_zjNM';
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status === 'OK') {
+        const addressComponents = data.results[0].address_components;
+        const cityComponent = addressComponents.find((comp: any) =>
+          comp.types.includes('locality')
+        );
+        return cityComponent ? cityComponent.long_name : null;
+      } else {
+        console.error('Geocoding API error:', data.status);
+        return null;
+      }
+    } catch (err) {
+      console.error('Error fetching city:', err);
+      return null;
+    }
+}
 
 
 

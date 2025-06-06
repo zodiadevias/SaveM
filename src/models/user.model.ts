@@ -11,5 +11,6 @@ export interface User {
     lat: number;
     lng: number;
   };
+  businessCity?: string;
   // ... add any other fields you use
 }

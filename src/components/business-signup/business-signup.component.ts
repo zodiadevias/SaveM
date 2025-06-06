@@ -73,6 +73,7 @@ export class BusinessSignupComponent implements OnInit{
   fullname = '';
   businessName = '';
   businessAddress = '';
+  businessCity: any = '';
   contactNumber = '';
   email = '';
   password = '';
@@ -89,11 +90,35 @@ export class BusinessSignupComponent implements OnInit{
     this.password = '';
     this.confirmPassword = '';
     this.businessAddress = '';
+    this.businessCity = '';
     this.contactNumber = '';
     this.error = '';
     this.selectedLocation = '';
   }
 
+  async getCityFromCoordinates(lat: number, lng: number): Promise<string | null> {
+    const apiKey = 'AIzaSyAfeFxRviL6S-qG7OkcmvKG_THCdk_zjNM';
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.status === 'OK') {
+        const addressComponents = data.results[0].address_components;
+        const cityComponent = addressComponents.find((comp: any) =>
+          comp.types.includes('locality')
+        );
+        return cityComponent ? cityComponent.long_name : null;
+      } else {
+        console.error('Geocoding API error:', data.status);
+        return null;
+      }
+    } catch (err) {
+      console.error('Error fetching city:', err);
+      return null;
+    }
+  }
 
 
 async onRegister(): Promise<void> {
@@ -138,6 +163,7 @@ async onRegister(): Promise<void> {
         lat: latitude,
         lng: longitude
       },
+      businessCity: this.businessCity,
       contactNumber: this.contactNumber,
       email: this.email,
       logoUrl,
@@ -154,6 +180,7 @@ async onRegister(): Promise<void> {
         lat: latitude,
         lng: longitude
       },
+      businessCity: this.businessCity,
       logoUrl,
       createdAt: new Date(),
     });
@@ -216,11 +243,13 @@ closeMapModal(): void {
   this.showMapModal = false;
 }
 
-confirmLocation(): void {
+async confirmLocation() {
   if (this.pinMarker) {
     const pos = this.pinMarker.getPosition();
     if (pos) {
       this.selectedCoordinates = `${pos.lat()}, ${pos.lng()}`;
+      this.businessCity = await this.getCityFromCoordinates(pos.lat(), pos.lng());
+      console.log(this.businessCity);
     }
   }
   this.closeMapModal();
