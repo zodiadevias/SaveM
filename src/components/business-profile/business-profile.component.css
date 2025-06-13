@@ -1,106 +1,120 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-    color: #1A5319;
+.sticky{
+    position: sticky;
+    z-index: 1000;
+    top: 0;
 }
 
-.greet {
-    background: radial-gradient(circle at 50% 50%, #508D4E 0%, #1A5319 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
+.image-box {
+  width: 150px;
+  height: 150px;
+  border: 3px solid #1A5319;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  color: #777;
+  font-family: sans-serif;
 }
 
-.logo {
-    width: 250px;
-    height: auto;
-}
-
-input {
-    border: 2px solid #1A5319;
-    border-radius: 10px;
-    height: 30px;
+.upload-text{
+    color: transparent;
     width: 100%;
-    background-color: #FEFAE0;
-    padding: 5px 10px;
-    box-sizing: border-box;
+    height: 100%;
 }
-
-table {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-td {
-    padding: 5px 0;
-}
-
-.scroll {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 30px 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-.parent-content {
-    background-color: #FEFAE0;
-    border: 2px solid #1A5319;
-    border-radius: 20px;
-    width: 400px;
-    max-width: 90%;
-    padding: 25px 20px;
-    box-sizing: border-box;
+.upload-text:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.content {
-    width: 100%;
-}
-.btn-save,
-.btn-delete {
-    width: 150px;
-    height: 40px;
-    border-radius: 5px;
-    color: #FEFAE0;
+    justify-content: center;
+    background-color: rgba(119, 119, 119, 0.5);
+    color: white;
+    font-size: 2.5rem;
     font-weight: bold;
-    cursor: pointer;
-    display: block;
-    margin: 15px auto 0 auto;
-}
-
-.btn-save {
-    background-color: #1A5319;
-    border: 2px solid #1A5319;
-}
-
-.btn-delete {
-    background-color: red;
-    border: 2px solid red;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.1s ease-in-out;
 }
 
 
-.map-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
+
+h1{
+    color: #1A5319;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+.store{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    gap: 10px;
+    
+}
+
+fieldset{
+    width: 25%;
+    color: #1A5319;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    border: 2px solid #1A5319;
+    border-radius: 10px;
+    background-color: beige;
+    
+}
+
+input{
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-save{
+    border-radius: 5px;
+    border: 2px solid #1A5319;
+    background-color: #1A5319;
+    color: #FEFAE0;
+    height: 40px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+hr{
+    width: 50%;
+    border: 1px solid #1A5319;
+}
+
+
+
+
+/* map */
+.map-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
 .modal-content {
   background: white;
-  padding: 1rem;
+  border-radius: 10px;
   width: 90%;
   max-width: 600px;
   height: 80%;
@@ -108,60 +122,67 @@ td {
   flex-direction: column;
 }
 
-    .map-container {
+.map-container {
   flex: 1;
   margin-bottom: 1rem;
+  border-radius: 10px;
+  width: 100%;
 }
 
-    .map-picker{
+.map-picker{
     width: 100%;
     display: flex;
     justify-content: center;
-    }
+}
 
-    .location-input{
-        width: 90%;
-    }
+.location-input{
+    width: 50%;
+}
 
-    .location-button{
-        width: 10%;
-    }
+.location-button{
+    width: 25%;
+    border-radius: 5px;
+    border: 2px solid #1A5319;
+    background-color: #1A5319;
+    color: #FEFAE0;
+    
+    margin-left: 4px;
+    cursor: pointer;
+}
 
-    .location{
-        display: flex;
-        flex-direction: row;
-    }
+.mapConfirm{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
 
+.map-pick{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+/* map */
 
+@media (max-width: 880px) {
+  fieldset {
+    width: 80%;
+  }
 
+  hr{
+    width: 100%;
+  }
 
-       /* RESPOSIVENESS */
-@media (max-width: 412px) {
-    .scroll {
-        flex-direction: column;
-        padding: 15px 10px;
-    }
+  .btn-save {
+    width: 90%;
+  }
 
-    .parent-content {
-        position: relative;
-        left: 20px;
-        width: 100%;
-        height: auto;
-    }
+  .modal-content{
+    margin-top: 50px;
+    height: 50%;
+  }
 
-    .logo {
-        width: 200px;
-    }
-
-    input {
-        width: 100%;
-    }
-
-    .btn-save,
-    .btn-delete {
-        width: 100%;
-    }
-
-
-
+  
 }

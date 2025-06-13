@@ -6,6 +6,8 @@ import { User } from '@angular/fire/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import { GlobalService } from './global.service';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { updateEmail as firebaseUpdateEmail } from 'firebase/auth';
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -28,6 +30,30 @@ export class AuthService {
   get currentUser() {
     return this.auth.currentUser;
   }
+
+async updateEmail(newEmail: string) {
+    const user = this.currentUser;
+    if (user) {
+      try {
+        await firebaseUpdateEmail(user, newEmail);
+        console.log('Email updated in Authentication.');
+
+        // // Optionally update in Firestore
+        // const db = getFirestore();
+        // const userRef = doc(db, 'users', user.uid);
+        // await setDoc(userRef, { email: newEmail }, { merge: true });
+        // console.log('Email updated in Firestore.');
+        
+      } catch (error) {
+        console.error('Error updating email:', error);
+        throw error; // Rethrow so component can handle error if needed
+      }
+    } else {
+      throw new Error('No user is currently logged in.');
+    }
+}
+
+
 
   async loginWithGoogle() {
     const provider = new GoogleAuthProvider();

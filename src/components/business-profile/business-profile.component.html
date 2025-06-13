@@ -1,59 +1,91 @@
-<app-header></app-header>
-    <div class="scroll">
-        <div class="parent-content">
-            <h1>Store Profile</h1>
-            <div class="content">
-                <app-notification-modal [isOpen]="isModalOpen" [message]="notif" (closeModal)="closeModal()"></app-notification-modal>
-                <table>
-                    <tr>
-                        <td>Business Name</td>
-                        
-                    </tr>
-                    <tr>
-                        <td><input class="flname" type="text" [(ngModel)]="businessName"></td>
-                        
-                    </tr>
-                </table>
-                <table>
-                    <tr>
-                        <td>Business Address</td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" [(ngModel)]="userLocation" readonly class="location-input" hidden><app-map-picker [defaultLocation]="userLocation" (locationSelected)="onLocationChosen($event)"></app-map-picker>
-</td>
-                    </tr>
-                </table>
-                <button class="btn-save" (click)="saveProfile()">Save</button>
-                <br>
-                <br>
+<div class="sticky">
+    <app-header></app-header>
+</div>
+
+<div class="content">
+    <div class="store">
+        <app-notification-modal [isOpen]="isModalOpen" [message]="notif" (closeModal)="closeModal()"></app-notification-modal>
+        <h1>Store Profile</h1>
+        <div class="image-box" [ngStyle]="{'background-image': logoPreview ? 'url(' + logoPreview + ')' : ''}" (click)="onBoxClick()">
+            <span class="upload-text">
+                <i class="fa-solid fa-file-pen"></i>
+            </span>
+        </div>
+        <input type="file" #fileInput accept="image/*" (change)="onLogoSelected($event)" hidden />
+        
+        
+        <fieldset>
+            <legend>Business Owner</legend>
+            <input type="text" placeholder="Business Owner" [(ngModel)]="businessOwner">    
+        </fieldset>
+
+        <fieldset>
+            <legend>Business Name</legend>
+            <input type="text" placeholder="Business Name" [(ngModel)]="businessName">    
+        </fieldset>
+
+        <fieldset>
+            <legend>Business Address</legend>
+            <div class="map-pick">
+                <input type="text" readonly placeholder="Business Address" [(ngModel)]="businessCity">
+                <button class="location-button" type="button" (click)="openMapModal()">Pin Location</button>    
             </div>
+        </fieldset>
 
-        </div>
-        <div class="parent-content">
-            <h1>Change Password</h1>
-            <div class="content">
-                <table>
-                    <tr><td>Old Password</td></tr>
-                    <tr><td><input class="password" type="password" [(ngModel)]="oldPassword"></td></tr>
-                    <tr><td>New Password</td></tr>
-                    <tr><td><input class="password" type="password" [(ngModel)]="newPassword"></td></tr>
-                    <tr><td>Confirm Password</td></tr>
-                    <tr><td><input class="password" type="password" [(ngModel)]="confirmPassword"></td></tr>
-                </table>
-                <button class="btn-save" (click)="changePassword()">Save</button>
+        <fieldset>
+            <legend>Business Phone</legend>
+            <input type="text" placeholder="Contact Number" [(ngModel)]="businessPhone">
+        </fieldset>
 
-                <br>
-                <br>
-            </div>
-        </div>
-        <div class="parent-content">
-            <br>
-            <h1>Delete Account</h1>
-            <br>
-            <button class="btn-delete" (click)="deleteAccount()">Delete</button>
+        <fieldset>
+            <legend>Business Email</legend>
+            <input type="text" placeholder="Email" [(ngModel)]="businessEmail">
+        </fieldset>
+        
+        <fieldset>
+            <legend>Password</legend>
+            <input type="password" [(ngModel)]="passwordValidation">
+        </fieldset>
 
-            <br>
-            <br>
-        </div>
+        <button class="btn-save" (click)="saveProfile()">{{btnUpdate}}</button>
+
+
+        <hr>
+
+        <h1>Change Password</h1>
+
+        <fieldset>
+            <legend>Current Password</legend>
+            <input type="password" [(ngModel)]="oldPassword">
+        </fieldset>
+
+        <fieldset>
+            <legend>New Password</legend>
+            <input type="password" [(ngModel)]="newPassword">
+        </fieldset>
+
+        <fieldset>
+            <legend>Confirm Password</legend>
+            <input type="password" [(ngModel)]="confirmPassword">
+        </fieldset>
+
+        <button class="btn-save" (click)="changePassword()">{{btnChangePassword}}</button>
+        
+        
+        
+
+
     </div>
+</div>
 
+
+<div class="map-modal" *ngIf="showMapModal">
+  <div class="modal-content">
+    <div #mapPicker class="map-container"></div>
+    <div class="mapConfirm">
+        <button (click)="confirmLocation()">Confirm Location</button>
+        <button (click)="closeMapModal()">Cancel</button>
+    </div>
+    
+  </div>
+</div>

@@ -48,6 +48,15 @@ export class FirestoreService {
     return updateDoc(userRef, data);
   }
 
+  updateStoreProfile(uid: string, data: any): Promise<void> {
+    const storeRef = doc(this.firestore, `stores/${uid}`);
+    return updateDoc(storeRef, data);
+  }
+
+
+
+
+
 
   // 3. Get business name
   async getBusinessName(uid: string): Promise<string | null> {

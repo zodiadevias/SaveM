@@ -10,7 +10,7 @@ export class UserdataService {
 async getUserData(): Promise<any | null> {
   const db = getFirestore();
   const user = this.authService.currentUser;
-
+  console.log(user);
   if (user) {
     const uid = user.uid;
     const userRef = doc(db, 'users', uid);

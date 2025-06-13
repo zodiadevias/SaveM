@@ -1,6 +1,6 @@
 @if (whatami == 'guest') {
   
-    <div class="modal" *ngIf="isOpen" (click)="close()">
+    <div class="modal" *ngIf="isOpen" >
       
       <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="close()">&times;</span>
@@ -39,7 +39,7 @@
 
 
 @if(whatami == 'guestRegister'){
-  <div class="modal" *ngIf="isOpen" (click)="close()">
+  <div class="modal" *ngIf="isOpen">
       <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="close()">&times;</span>
         <div class="modal-header">
