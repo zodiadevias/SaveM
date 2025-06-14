@@ -99,8 +99,8 @@ signup(user: string){
 logout(){
   this.authService.logout()
     .then(() => {
-      
       this.globalService.setWhatAmIHead('guest');
+      this.router.navigate(['/dashboard']);
     })
     .catch(err => console.error('Logout error:', err));
 }

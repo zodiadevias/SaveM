@@ -182,6 +182,7 @@ async onRegister(): Promise<void> {
       },
       businessCity: this.businessCity,
       logoUrl,
+      rating: 0,
       createdAt: new Date(),
     });
 

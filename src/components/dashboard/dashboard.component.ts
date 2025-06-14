@@ -157,7 +157,7 @@ closeModal() {
 
 gotoStore(storeID: any) {
   this.globalService.setStoreID(storeID);
-  this.router.navigate(['/store']);
+  this.router.navigate(['/store/'+storeID]);
   
 }
   
