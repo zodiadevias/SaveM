@@ -69,6 +69,8 @@ export class BusinessMenuModalComponent {
   }
 
   save(): void {
+
+    if (!this.name || !this.price || !this.stock || !this.discount || !this.finalPrice || !this.imageUrl || !this.description) return;
     const productData = {
       name: this.name,
       description: this.description || 'No description provided',
