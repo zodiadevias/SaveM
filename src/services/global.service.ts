@@ -12,6 +12,8 @@ export class GlobalService {
   whatAmIHead = '';
   whatAmIDashboard = '';
 
+  storeID = '';
+
   getWhatAmIHead() {
     return this.whatAmIHead
   }
@@ -32,6 +34,15 @@ export class GlobalService {
 
   getWhatAmIDashboard() {
     return this.whatAmIDashboard
+  }
+
+
+  setStoreID(storeID: string) {
+    this.storeID = storeID
+  }
+
+  getStoreID() {
+    return this.storeID
   }
 
 }

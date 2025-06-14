@@ -8,6 +8,7 @@ import { FirestoreService } from '../../services/firestore.service';
 import { UserdataService } from '../../services/userdata.service';
 import { Store } from '../../models/store.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +33,13 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(private globalService: GlobalService, public authService: AuthService, public firestoreService: FirestoreService, private userdataService: UserdataService) {
+  constructor(
+    private globalService: GlobalService, 
+    public authService: AuthService, 
+    public firestoreService: FirestoreService, 
+    private userdataService: UserdataService, 
+    private router: Router
+  ) {
     // this.globalService.setWhatAmIHead('guest');
     
   }
@@ -148,8 +155,11 @@ closeModal() {
 
 
 
-
-
+gotoStore(storeID: any) {
+  this.globalService.setStoreID(storeID);
+  this.router.navigate(['/store']);
+  
+}
   
 
 
