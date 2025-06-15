@@ -33,7 +33,7 @@
       <button class="btn-pickup">Pick-up</button>
     </div>
     <div class="cart-info">
-      <div class="cart-empty" *ngIf="cartItems === undefined">
+      <div class="cart-empty" *ngIf="cartItems === undefined || cartItems.length === 0">
         <img src="img/empty-cart.svg" alt="Cart Icon" />
         <p>You haven’t added anything to your cart!</p>
       </div>
