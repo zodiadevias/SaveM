@@ -5,7 +5,7 @@
   <img src="{{storeData.logoUrl}}" alt="logo" class="shop-logo" />
   <div class="shop-info">
     <h1>{{storeData.storeName}} – {{storeData.businessCity}}</h1>
-    <p class="rating">⭐ {{overallRating}}/5 (100+)<a href="#" (click)="showReviewModal = true; $event.preventDefault()">See Reviews</a></p>
+    <p class="rating">⭐ {{overallRating}}/5 ({{storeData.ratings.length}})<a href="#" (click)="showReviewModal = true; $event.preventDefault()">See Reviews</a></p>
   </div>
 </div>
 <div class="main-container">
@@ -20,8 +20,8 @@
           <img src="{{item.imageUrl}}" alt="Product Image" />
           <h3>{{item.name}}</h3>
           <p>{{item.description}}</p>
-          <p>₱{{item.finalPrice | number:'1.0-0'}}</p>
-          <button>+</button>
+          <p>₱{{item.finalPrice | number:'1.0'}}</p>
+          <button (click)="addToCart(item)">+</button>
         </div>
       </ng-container>
       
@@ -33,12 +33,26 @@
       <button class="btn-pickup">Pick-up</button>
     </div>
     <div class="cart-info">
-      <img src="assets/cart.png" alt="Cart Icon" />
-      <p>You haven’t added anything to your cart!</p>
+      <div class="cart-empty" *ngIf="cartItems === undefined">
+        <img src="img/empty-cart.svg" alt="Cart Icon" />
+        <p>You haven’t added anything to your cart!</p>
+      </div>
+      <div class="cart-container">
+        <!-- Add your cart items here -->
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <img src="{{item.imageUrl}}" alt="Product Image" />
+            <p>{{item.name}}</p>
+            <p>₱{{item.finalPrice | number:'1.0'}}</p>
+            <button (click)="removeFromCart(item)">-</button>
+            <p>{{item.quantity}}</p>
+            <button (click)="addToCart(item)">+</button>
+        </div>
+      </div>
+      
     </div>
     <div class="cart-summary">
       <p>Total (incl. fees and tax)</p>
-      <p class="total">₱0.00</p>
+      <p class="total">₱{{totalPrice | number:'1.0'}}</p>
       <button>Review payment and Address</button>
     </div>
   </div>

@@ -46,7 +46,7 @@ export class StoreComponent{
       this.storeData = data;
       console.log(this.storeData);
       let totalRating = 0;
-      for (let i = 0; i< this.storeData.ratings.length; i++){
+      for (let i = 0; i < this.storeData.ratings.length; i++){
         totalRating += this.storeData.ratings[i];
       }
       this.overallRating = totalRating / this.storeData.ratings.length;
@@ -54,12 +54,49 @@ export class StoreComponent{
 
     await this.firestoreService.getMenuItems(this.storeID).subscribe((items) => {
       this.items = items;
-      console.log(this.items);
+      
     });
   }
 
 
 
+
+  cartItems: any;
+  totalPrice: number = 0;
+
+  addToCart(item: any) {
+    if (this.cartItems === undefined || this.cartItems.length === 0) {
+      this.cartItems = [item];
+      this.cartItems[0].quantity = 1;
+    } else {
+      for (let i = 0; i < this.cartItems.length; i++) {
+        if (this.cartItems[i].id === item.id) {
+          this.cartItems[i].quantity++;
+        }else{
+          this.cartItems.push(item);
+          this.cartItems[this.cartItems.length - 1].quantity = 1;
+        }
+      }
+      
+    }
+
+    this.totalPrice = 0;
+    for (let i = 0; i < this.cartItems.length; i++) {
+      this.totalPrice += this.cartItems[i].finalPrice * this.cartItems[i].quantity;
+      
+    }
+  }
+
+  removeFromCart(item: any) {
+    
+    if (item.quantity === 1) {
+      this.cartItems.splice(this.cartItems.indexOf(item), 1);
+      this.totalPrice = this.totalPrice - item.finalPrice;
+    }else{
+      item.quantity--;
+      this.totalPrice = this.totalPrice - item.finalPrice;
+    }
+  }
 
 
 
